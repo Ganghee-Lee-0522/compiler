@@ -36,7 +36,6 @@
 ">" return(TGREATE);
 "++" return(TINC);
 "--" return(TDEC);
-"/*"([^*]|\*+[^*/])*\**"*/" ;
 [(),{}[];] ;
 [ \t\n] ;
 .   return(yytext[0]);
