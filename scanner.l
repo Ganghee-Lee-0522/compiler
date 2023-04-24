@@ -4,6 +4,9 @@
 #include "tn.h"
 %}
 %%
+"//".*  ;
+[A-Za-z_][A-Za-z0-9_]*  return(TIDENT);
+[1-9][0-9]*|0([0-7]+|(x|X)[0-9A-Fa-f]*)?    return(TNUMBER);
 "const" return(TCONST);
 "else" return(TELSE);
 "if" return(TIF);
@@ -11,28 +14,35 @@
 "return" return(TRETURN);
 "void" return(TVOID);
 "while" return(TWHILE);
-"==" return(TEQUAL);
-"!=" return(TNOTEQU);
-"<=" return(TLESSE);
-">=" return(TGREATE);
-"&&" return(TAND);
-"||" return(TOR);
-"++" return(TINC);
-"--" return(TDEC);
+"+"
+"-"
+"*"
+"/"
+"%"
+"="
 "+=" return(TADDASSIGN);
 "-=" return(TSUBASSIGN);
 "*=" return(TMULASSIGN);
 "/=" return(TDIVASSIGN);
 "%=" return(TMODASSIGN);
-[A-Za-z_][A-Za-z0-9_]*  return(TIDENT);
-[1-9][0-9]*|0([0-7]+|(x|X)[0-9A-Fa-f]*)?    return(TNUMBER);
+"!"
+"&&" return(TAND);
+"||" return(TOR);
+"==" return(TEQUAL);
+"!=" return(TNOTEQU);
+"<=" return(TLESSE);
+">=" return(TGREATE);
+"<" return(TLESSE);
+">" return(TGREATE);
+"++" return(TINC);
+"--" return(TDEC);
 "/*"([^*]|\*+[^*/])*\**"*/" ;
-"//".*  ;
+[(),{}[];] ;
 [ \t\n] ;
 .   return(yytext[0]);
 %%
 int yywrap()
 {
-    printf("\n1976393 younjichoi\n2076278 jiyunyun\n2076285 gangheelee");
+    printf("\n1976393 최윤지\n2076278 윤지윤\n2076285 이강희");
     return 1;
 }
