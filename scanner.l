@@ -48,7 +48,7 @@ extern reporterror(enum tnumber tn);
 "]"  return(TBRALR);
 ","  return(TCOMMA);
 ";"  return(TSEMICOLON);
-"//".*  ;
+"//".*  return(TCMT);
 "\n" linenum++;
 [ \t\n] return(TSPACE);
 .   reporterror(ILLSP);
