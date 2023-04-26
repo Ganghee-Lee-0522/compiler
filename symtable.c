@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tn.h"
-#include "glob.h"
+//#include "glob.h"
 
-//extern int linenum;
-//extern int yyleng;
-//extern char* yytext;
-//extern reporterror(enum tnumber tn);
+extern int linenum;
+extern int yyleng;
+extern char* yytext;
+extern reporterror(enum tokentype tn);
 
 #define STsize 1000 //size of string table
 #define HTsize 100 //size of hash table

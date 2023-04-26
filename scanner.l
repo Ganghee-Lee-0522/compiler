@@ -17,14 +17,15 @@ D	[0-9]
 "return" return(TRETURN);
 "void" return(TVOID);
 "while" return(TWHILE);
-"\n" linenum++;
+[\n] {linenum++;
+return(TSPACE);}
 "//".*  return(TCMT);
 {A}({A}|{D})* {
     if(yyleng>MaxIdentLen){ 
         reporterror(TOOLONG);
     }
     else {
-        return(TIDENT);
+        SymbolTable();
     }
 }
 {D}({A}|{D})*{A}({A}|{D})* { 
@@ -61,7 +62,7 @@ reporterror(ILLID);
 "]"  return(TBRALR);
 ","  return(TCOMMA);
 ";"  return(TSEMICOLON);
-[ \t\n] return(TSPACE);
+[ \t] return(TSPACE);
 .   reporterror(ILLSP);
 %%
 int yywrap()

@@ -7,11 +7,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h"
-#include "glob.h"
+//#include "glob.h"
 //extern yylex();
-//extern char* yytext;
-//extern int linenum;
-//extern int cErrors;
+extern char* yytext;
+extern int linenum;
+extern int cErrors;
 
 
 void printToken(enum tokentypes tn) {
@@ -24,11 +24,23 @@ void printToken(enum tokentypes tn) {
 
         // keyword
     case TCONST:
+        printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
+        break;
     case TELSE:
+        printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
+        break;
     case TIF:
+        printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
+        break;
     case TINT:
+        printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
+        break;
     case TRETURN:
+        printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
+        break;
     case TVOID:
+        printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
+        break;
     case TWHILE:
         printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
         break;
