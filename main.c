@@ -20,125 +20,140 @@ extern int cErrors;
 void printToken(enum tokentypes tn) {
     switch (tn) {
 
-        // 주석
+        // 주석일 때
     case TCMT:
         printf("%-20d %-30s %-20s %-30s\n", linenum, "comment", " ", yytext);
         break;
 
-        // keyword
-    case TCONST:
+        // keyword일 때
+    case TCONST: // CONST
         printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
         break;
-    case TELSE:
+    case TELSE: // ELSE
         printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
         break;
-    case TIF:
+    case TIF: // IF
         printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
         break;
-    case TINT:
+    case TINT: // INT
         printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
         break;
-    case TRETURN:
+    case TRETURN: // RETURN
         printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
         break;
-    case TVOID:
+    case TVOID: // VOID
         printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
         break;
-    case TWHILE:
+    case TWHILE: // WHILE
         printf("%-20d %-30s %-20s %-30s\n", linenum, "keyword", " ", yytext);
         break;
 
-        // operator
-    case TADD:
+        // operator일 때
+    case TADD: // +
         printf("%-20d %-30s %-20s %-30s\n", linenum, "addition", " ", yytext);
         break;
-    case TSUB:
+    case TSUB: // -
         printf("%-20d %-30s %-20s %-30s\n", linenum, "subtraction", " ", yytext);
         break;
-    case TMUL:
+    case TMUL: // *
         printf("%-20d %-30s %-20s %-30s\n", linenum, "multiplication", " ", yytext);
         break;
-    case TDIV:
+    case TDIV: // /
         printf("%-20d %-30s %-20s %-30s\n", linenum, "division", " ", yytext);
         break;
-    case TMOD:
+    case TMOD: // %
         printf("%-20d %-30s %-20s %-30s\n", linenum, "modulo", " ", yytext);
         break;
-    case TOP: // "="
+    case TOP: // =
         printf("%-20d %-30s %-20s %-30s\n", linenum, "assign", " ", yytext);
         break;
-    case TEQUAL: // "=="
+    case TEQUAL: // ==
         printf("%-20d %-30s %-20s %-30s\n", linenum, "equal", " ", yytext);
         break;
-    case TNOTEQU: // "!="
+    case TNOTEQU: // !=
         printf("%-20d %-30s %-20s %-30s\n", linenum, "not equal", " ", yytext);
         break;
-    case TLESSE: // "<="
+    case TLESSE: // <=
         printf("%-20d %-30s %-20s %-30s\n", linenum, "less", " ", yytext);
         break;
-    case TGREATE: // ">="
+    case TGREATE: // >=
         printf("%-20d %-30s %-20s %-30s\n", linenum, "grater", " ", yytext);
         break;
-    case TNOT: // "!"
+    case TNOT: // !
         printf("%-20d %-30s %-20s %-30s\n", linenum, "not", " ", yytext);
         break;
-    case TAND: // "&&"
+    case TAND: // &&
         printf("%-20d %-30s %-20s %-30s\n", linenum, "and", " ", yytext);
         break;
-    case TOR: // "||"
+    case TOR: // ||
         printf("%-20d %-30s %-20s %-30s\n", linenum, "or", " ", yytext);
         break;
-    case TINC: // "++"
+    case TINC: // ++
         printf("%-20d %-30s %-20s %-30s\n", linenum, "increase one", " ", yytext);
         break;
-    case TDEC: // "--"
+    case TDEC: // --
         printf("%-20d %-30s %-20s %-30s\n", linenum, "decrease one", " ", yytext);
         break;
-    case TADDASSIGN: // "+="
+    case TADDASSIGN: // +=
         printf("%-20d %-30s %-20s %-30s\n", linenum, "add assign", " ", yytext);
         break;
-    case TSUBASSIGN: // "-="
+    case TSUBASSIGN: // -=
         printf("%-20d %-30s %-20s %-30s\n", linenum, "sub assign", " ", yytext);
         break;
-    case TMULASSIGN: // "*="
+    case TMULASSIGN: // *=
         printf("%-20d %-30s %-20s %-30s\n", linenum, "mul assign", " ", yytext);
         break;
-    case TDIVASSIGN: // "/="
+    case TDIVASSIGN: // /=
         printf("%-20d %-30s %-20s %-30s\n", linenum, "div assign", " ", yytext);
         break;
-    case TMODASSIGN: // "%="
+    case TMODASSIGN: // %=
         printf("%-20d %-30s %-20s %-30s\n", linenum, "mod assign", " ", yytext);
         break;
 
-        // number
+        // number일 때
     case TNUMBER:
         printf("%-20d %-30s %-20s %-30s\n", linenum, "number", " ", yytext);
         break;
 
-        // 괄호
-    case TBRASL: // "("
+        // 괄호일 때
+    case TBRASL: // (
         printf("%-20d %-30s %-20s %-30s\n", linenum, "open small bracket", " ", yytext);
         break;
-    case TBRASR: // ")"
+    case TBRASR: // )
         printf("%-20d %-30s %-20s %-30s\n", linenum, "close small bracket", " ", yytext);
         break;
-    case TBRAML: // "{"
+    case TBRAML: // {
         printf("%-20d %-30s %-20s %-30s\n", linenum, "open middle bracket", " ", yytext);
         break;
-    case TBRAMR: // "}"
+    case TBRAMR: // }
         printf("%-20d %-30s %-20s %-30s\n", linenum, "close middle bracket", " ", yytext);
         break;
-    case TBRALL: // "["
+    case TBRALL: // [
         printf("%-20d %-30s %-20s %-30s\n", linenum, "open large bracket", " ", yytext);
         break;
-    case TBRALR: // "]"
+    case TBRALR: // ]
         printf("%-20d %-30s %-20s %-30s\n", linenum, "close large bracket", " ", yytext);
         break;
-    case TCOMMA: // ","
+
+        // 콤마일 때
+    case TCOMMA: // ,
         printf("%-20d %-30s %-20s %-30s\n", linenum, "comma", " ", yytext);
         break;
-    case TSEMICOLON: // ";"
+
+        // 세미콜론일 때
+    case TSEMICOLON: // ;
         printf("%-20d %-30s %-20s %-30s\n", linenum, "semicolon", " ", yytext);
+        break;
+
+        // White spaces
+    case TSPACE: // 공백 문자
+        printf("%-20d %-30s %-20s %-30s\n", linenum, "white space-space", " ", yytext);
+        break;
+    case TTAB: // tab
+        printf("%-20d %-30s %-20s %-30s\n", linenum, "white space-tab", " ", yytext);
+        break;
+    case TLINE: // 줄바꿈
+        printf("%-20d %-30s %-20s %-30s\n", linenum, "white space-line", " ", yytext);
         break;
     }
 }
@@ -159,7 +174,7 @@ void main()
     printf("%-20s %-30s %-20s %-30s\n", "Line number", "Token type", "ST-index", "Token");
     printf("========================================================================================================================\n");
     
-
+    // token을 하나씩 받아와서 출력 처리
     while((tn=yylex()) != TEOF){
         // line number, token type, ST index (ident인 경우만), Token을 프린트
         printToken(tn);
