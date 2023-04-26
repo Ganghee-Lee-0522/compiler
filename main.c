@@ -153,7 +153,7 @@ void printToken(enum tokentypes tn) {
         printf("%-20d %-30s %-20s\n", linenum, "white space-tab", " ");
         break;
     case TSPACE: // 공백 문자
-        printf("%-20d %-30s %-20s\n", linenum, "white space", " ");
+        printf("%-20d %-30s %-20s\n", linenum, "white space-space", " ");
         break;
     }
 }
