@@ -12,7 +12,11 @@ extern char* yytext;
 extern int linenum;
 extern int cErrors;
 
-
+/*
+* printToken() -- token type 별로 출력
+* switch문에 tn을 넣어 token을 구분하고 출력
+* line number, token type, ST index (ident인 경우만), Token을 프린트
+*/
 void printToken(enum tokentypes tn) {
     switch (tn) {
 
@@ -139,8 +143,10 @@ void printToken(enum tokentypes tn) {
     }
 }
 
+
 /*
-* printToken
+* main() -- yylex()로 토큰을 받아와 출력 함수를 호출, Error 개수를 세어 출력문 구성
+* switch문에 tn을 넣어 token을 구분하고 출력
 * line number, token type, ST index (ident인 경우만), Token을 프린트
 */
 void main()
@@ -154,25 +160,27 @@ void main()
     printf("=========================================================================================================\n");
     
 
-    // token별 출력
     while((tn=yylex()) != TEOF){
+        // line number, token type, ST index (ident인 경우만), Token을 프린트
         printToken(tn);
     }
 
 
-    // error 개수 출력
-    if (cErrors == 0) {
+    // Error 개수 출력
+    if (cErrors == 0) { // Error가 0개일 때
         printf("=========================================================================================================\n");
         printf("No errors detected\n");
         printf("=========================================================================================================\n");
 
     }
-    else {
+    else { // Error가 1개 이상일 때, Error 개수 출력
         printf("=========================================================================================================\n");
         printf("%d errors detected\n", cErrors);
         printf("=========================================================================================================\n");
 
     }
+
+    // Programmer
     printf("\n1976393 최윤지\n2076278 윤지윤\n2076285 이강희");
 
 }
