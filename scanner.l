@@ -14,6 +14,9 @@ A	[a-zA-Z_]
 D	[0-9] 
 %%
 
+/*
+*keyword
+*/
 "const" return(TCONST);
 "else" return(TELSE);
 "if" return(TIF);
@@ -21,9 +24,21 @@ D	[0-9]
 "return" return(TRETURN);
 "void" return(TVOID);
 "while" return(TWHILE);
+
+/*
+*줄바꿈 시 줄 갯수 1 증가 + '/n'은 white space 이므로 TSPACE return
+*/
 [\n] {linenum++;
 return(TSPACE);}
+
+/*
+*주석
+*/
 "//".*  return(TCMT);
+
+/*
+*Identifier MacIdentLen(10)보다 크면 에러
+*/
 {A}({A}|{D})* {
     if(yyleng>MaxIdentLen){ 
         reporterror(TOOLONG);
@@ -32,10 +47,22 @@ return(TSPACE);}
         SymbolTable();
     }
 }
+
+/*
+*숫자로 시작하는 Identifier는 에러
+*/
 {D}({A}|{D})*{A}({A}|{D})* { 
 reporterror(ILLID);
 }
+
+/*
+*constant
+*/
 {D}+	return(TNUMBER);
+
+/*
+*operator
+*/
 "+"  return(TADD);
 "-" return(TSUB);
 "*" return(TMUL);
@@ -58,6 +85,10 @@ reporterror(ILLID);
 ">" return(TGREATE);
 "++" return(TINC);
 "--" return(TDEC);
+
+/*
+*Special Symbols
+*/
 "("  return(TBRASL);
 ")"  return(TBRASR);
 "{"  return(TBRAML);
@@ -66,7 +97,15 @@ reporterror(ILLID);
 "]"  return(TBRALR);
 ","  return(TCOMMA);
 ";"  return(TSEMICOLON);
+
+/*
+*white spaces
+*/
 [ \t] return(TSPACE);
+
+/*
+*나머지 경우는 에러, 유효하지 않은 문자가 포함된 
+*/
 .   reporterror(ILLSP);
 %%
 int yywrap()
