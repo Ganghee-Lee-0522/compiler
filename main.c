@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "tn.h"
 //#include "glob.h"
-//extern yylex();
+extern yylex();
 extern char* yytext;
 extern int linenum;
 extern int cErrors;
@@ -159,6 +159,7 @@ void main()
     while((tn=yylex()) != TEOF){
         printToken(tn);
     }
+
 
     // error 개수 출력
     if (cErrors == 0) {

@@ -132,17 +132,17 @@ int SymbolTable()
 
 	if (!found) { // 아직 같은 identifier를 ST에 넣은 적 없을 때
 		// line number, Token-type, ST-index(identifier인 경우), token 순으로 출력
-		printf("%-20d %-35s %-20d %-30s\n", linenum, "Identifier", nextid, yytext);
+		printf("%-20d %-30s %-20d %-30s\n", linenum, "Identifier", nextid, yytext);
 		ADDHT(hashcode); // HT 삽입
 	}
 	else { // 이미 같은 identifier가 있을 때
 
 		// line number, Token-type, ST-index(identifier인 경우), token 순으로 출력
-		printf("%-20d %-35s %-20d %-30s\n", linenum, "Identifier", sameid, yytext);
+		printf("%-20d %-30s %-20d %-30s\n", linenum, "Identifier", sameid, yytext);
 		nextfree = nextid; //이번에 ST에 읽은 identifier를 다음에 덮어씀
 	}
 
-	printf("\n1976393 최윤지 \n  2076278 윤지윤 \n 2076285 이강희");
+	//printf("\n1976393 최윤지 \n  2076278 윤지윤 \n 2076285 이강희");
 	//fclose(fp);
 
 	/*ST출력
