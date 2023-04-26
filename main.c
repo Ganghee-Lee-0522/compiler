@@ -7,49 +7,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h"
-#include "global.h"
-extern yylex();
-extern char* yytext;
-extern int linenum;
-extern int cErrors;
+#include "glob.h"
+//extern yylex();
+//extern char* yytext;
+//extern int linenum;
+//extern int cErrors;
 
-
-/*
-* printToken
-* line number, token type, ST index (ident인 경우만), Token을 프린트
-*/
-void main()
-{
-    // token type을 저장할 변수 선언
-    enum tokentypes tn;
-
-    // print header
-    printf("=========================================================================================================\n");
-    printf("%-20s %-30s %-20s %-30s\n", "Line number", "Token type", "ST-index", "Token");
-    printf("=========================================================================================================\n");
-    
-
-    // token별 출력
-    while((tn=yylex()) != TEOF){
-        printToken(tn);
-    }
-
-    // error 개수 출력
-    if (cErrors == 0) {
-        printf("=========================================================================================================\n");
-        printf("No errors detected\n");
-        printf("=========================================================================================================\n");
-
-    }
-    else {
-        printf("=========================================================================================================\n");
-        printf("%d errors detected\n", cErrors);
-        printf("=========================================================================================================\n");
-
-    }
-    printf("\n1976393 최윤지\n2076278 윤지윤\n2076285 이강희");
-
-}
 
 void printToken(enum tokentypes tn) {
     switch (tn) {
@@ -163,4 +126,41 @@ void printToken(enum tokentypes tn) {
         printf("%-20d %-30s %-20s %-30s\n", linenum, "semicolon", " ", yytext);
         break;
     }
+}
+
+/*
+* printToken
+* line number, token type, ST index (ident인 경우만), Token을 프린트
+*/
+void main()
+{
+    // token type을 저장할 변수 선언
+    enum tokentypes tn;
+
+    // print header
+    printf("=========================================================================================================\n");
+    printf("%-20s %-30s %-20s %-30s\n", "Line number", "Token type", "ST-index", "Token");
+    printf("=========================================================================================================\n");
+    
+
+    // token별 출력
+    while((tn=yylex()) != TEOF){
+        printToken(tn);
+    }
+
+    // error 개수 출력
+    if (cErrors == 0) {
+        printf("=========================================================================================================\n");
+        printf("No errors detected\n");
+        printf("=========================================================================================================\n");
+
+    }
+    else {
+        printf("=========================================================================================================\n");
+        printf("%d errors detected\n", cErrors);
+        printf("=========================================================================================================\n");
+
+    }
+    printf("\n1976393 최윤지\n2076278 윤지윤\n2076285 이강희");
+
 }

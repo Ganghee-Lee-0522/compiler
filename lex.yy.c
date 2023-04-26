@@ -411,7 +411,7 @@ char *yytext;
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h"
-extern int linenum; /*라인수 세는 변수*/ 
+#include "glob.h"
 extern reporterror(enum tnumber tn); /*에러 출력하는 함수*/
 #line 417 "lex.yy.c"
 
@@ -695,188 +695,192 @@ case 10:
 YY_RULE_SETUP
 #line 22 "scanner.l"
 {
-    if(yyleng>10){ 
+    if(yyleng>MaxIdentLen){ 
         reporterror(TOOLONG);
-    }return(TIDENT)};
+    }
+    else {
+        return(TIDENT);
+    }
+}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 26 "scanner.l"
+#line 30 "scanner.l"
 { 
 reporterror(ILLID);
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 29 "scanner.l"
+#line 33 "scanner.l"
 return(TNUMBER);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 30 "scanner.l"
+#line 34 "scanner.l"
 return(TADD);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 31 "scanner.l"
+#line 35 "scanner.l"
 return(TSUB);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 32 "scanner.l"
+#line 36 "scanner.l"
 return(TMUL);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 33 "scanner.l"
+#line 37 "scanner.l"
 return(TDIV);
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 34 "scanner.l"
+#line 38 "scanner.l"
 return(TMOD);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 35 "scanner.l"
-return(TOP)
+#line 39 "scanner.l"
+return(TOP);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 36 "scanner.l"
+#line 40 "scanner.l"
 return(TADDASSIGN);
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 37 "scanner.l"
+#line 41 "scanner.l"
 return(TSUBASSIGN);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 38 "scanner.l"
+#line 42 "scanner.l"
 return(TMULASSIGN);
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 39 "scanner.l"
+#line 43 "scanner.l"
 return(TDIVASSIGN);
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 40 "scanner.l"
+#line 44 "scanner.l"
 return(TMODASSIGN);
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 41 "scanner.l"
+#line 45 "scanner.l"
 return(TNOT);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 42 "scanner.l"
+#line 46 "scanner.l"
 return(TAND);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 43 "scanner.l"
+#line 47 "scanner.l"
 return(TOR);
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 44 "scanner.l"
+#line 48 "scanner.l"
 return(TEQUAL);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 45 "scanner.l"
+#line 49 "scanner.l"
 return(TNOTEQU);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 46 "scanner.l"
+#line 50 "scanner.l"
 return(TLESSE);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 47 "scanner.l"
+#line 51 "scanner.l"
 return(TGREATE);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 48 "scanner.l"
+#line 52 "scanner.l"
 return(TLESSE);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 49 "scanner.l"
+#line 53 "scanner.l"
 return(TGREATE);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 50 "scanner.l"
+#line 54 "scanner.l"
 return(TINC);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 51 "scanner.l"
+#line 55 "scanner.l"
 return(TDEC);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 52 "scanner.l"
+#line 56 "scanner.l"
 return(TBRASL);
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 53 "scanner.l"
+#line 57 "scanner.l"
 return(TBRASR);
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 54 "scanner.l"
+#line 58 "scanner.l"
 return(TBRAML);
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 55 "scanner.l"
+#line 59 "scanner.l"
 return(TBRAMR);
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 56 "scanner.l"
+#line 60 "scanner.l"
 return(TBRALL);
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 57 "scanner.l"
+#line 61 "scanner.l"
 return(TBRALR);
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 58 "scanner.l"
+#line 62 "scanner.l"
 return(TCOMMA);
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 59 "scanner.l"
+#line 63 "scanner.l"
 return(TSEMICOLON);
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 60 "scanner.l"
+#line 64 "scanner.l"
 return(TSPACE);
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 61 "scanner.l"
+#line 65 "scanner.l"
 reporterror(ILLSP);
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 62 "scanner.l"
+#line 66 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 880 "lex.yy.c"
+#line 884 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1460,7 +1464,7 @@ FILE *file;
 #if YY_NEVER_INTERACTIVE
 	b->yy_is_interactive = 0;
 #else
-	b->yy_is_interactive = file ? (isatty( fileno(file) ) > 0) : 0;
+	b->yy_is_interactive = file ? (isatty( _fileno(file) ) > 0) : 0;
 #endif
 #endif
 	}
@@ -1736,10 +1740,9 @@ int main()
 	return 0;
 	}
 #endif
-#line 62 "scanner.l"
+#line 66 "scanner.l"
 
 int yywrap()
 {
-    printf("\n1976393 최윤지\n2076278 윤지윤\n2076285 이강희");
     return 1;
 }

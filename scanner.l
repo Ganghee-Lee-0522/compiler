@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "tn.h"
 #include "glob.h"
-extern int linenum; /*라인수 세는 변수*/ 
 extern reporterror(enum tnumber tn); /*에러 출력하는 함수*/
 %}
 
