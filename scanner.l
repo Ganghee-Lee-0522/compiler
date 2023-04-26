@@ -22,7 +22,11 @@ D	[0-9]
 {A}({A}|{D})* {
     if(yyleng>10){ 
         reporterror(TOOLONG);
-    }return(TIDENT)};
+    }
+    else {
+        return(TIDENT);
+    }
+}
 {D}({A}|{D})*{A}({A}|{D})* { 
 reporterror(ILLID);
 }
@@ -32,7 +36,7 @@ reporterror(ILLID);
 "*" return(TMUL);
 "/" return(TDIV);
 "%" return(TMOD);
-"=" return(TOP)
+"=" return(TOP);
 "+=" return(TADDASSIGN);
 "-=" return(TSUBASSIGN);
 "*=" return(TMULASSIGN);
@@ -62,6 +66,5 @@ reporterror(ILLID);
 %%
 int yywrap()
 {
-    printf("\n1976393 최윤지\n2076278 윤지윤\n2076285 이강희");
     return 1;
 }
