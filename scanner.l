@@ -39,7 +39,7 @@ extern reporterror(enum tnumber tn);
     if(yyleng>10){
         reporterror(TLONG);
     }return(TIDENT)};
-[1-9][0-9]*	return(TNUMBER);
+[0-9]+	return(TNUMBER);
 "("  return(TBRASL);
 ")"  return(TBRASR);
 "{"  return(TBRAML);
@@ -48,9 +48,9 @@ extern reporterror(enum tnumber tn);
 "]"  return(TBRALR);
 ","  return(TCOMMA);
 ";"  return(TSEMICOLON);
-"/*"([^*]|\*+[^*/])*\**"*/"   ;
+"//".*  ;
 "\n" linenum++;
-[ \t\n] ;
+[ \t\n] return(TSPACE);
 .   return(TERROR);
 %%
 int yywrap()
