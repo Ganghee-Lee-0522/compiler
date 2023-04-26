@@ -1,0 +1,12 @@
+/*annotation1*/
+int main(void) {
+	int aa=0; 
+	int bb = 100;
+	while(bb23 > 155) {
+		bb /=3; error
+		a++; 
+	}
+
+	printf( %d  , aa); /*annotation2*/
+	return 0; 
+}
