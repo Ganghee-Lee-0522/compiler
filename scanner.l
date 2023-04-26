@@ -11,10 +11,12 @@ extern reporterror(enum tnumber tn); //에러 출력하는 함수
 
 //Identifier
 [A-Za-z_][A-Za-z0-9_]* {
-    if(yyleng>10){
+    if(yyleng>10){ // 길이가 10이 넘어가는 경우 에러
         reporterror(TOOLONG);
     }return(TIDENT)};
-    
+[0-9][A-Za-z0-9_]+ { // 숫자로 시작하는 경우 에러
+reporterror(ILLID);
+}
 //Constant
 [0-9]+	return(TNUMBER);
 
