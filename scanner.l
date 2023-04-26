@@ -101,7 +101,7 @@ reporterror(ILLID);
 "\t" return(TTAB);
 " " return(TSPACE);
  /*
- * 줄바꿈 시 줄 갯수 1 증가 + '/n'은 white space 이므로 TLINE 리턴
+ * 줄바꿈 시 줄 갯수 1 증가 + '\n'은 white space 이므로 TLINE 리턴
  */
 "\n" {linenum++;
 return(TLINE);}
