@@ -26,11 +26,7 @@ D	[0-9]
 "void" return(TVOID);
 "while" return(TWHILE);
 
- /*
- * 줄바꿈 시 줄 갯수 1 증가 + '/n'은 white space 이므로 TSPACE return
- */
-[\n] {linenum++;
-return(TSPACE);}
+
 
  /*
  * 주석
@@ -102,7 +98,13 @@ reporterror(ILLID);
  /*
  * white spaces
  */
-[ \t] return(TSPACE);
+[ ] return(TSPACE);
+[\t] return(TTAB);
+ /*
+ * 줄바꿈 시 줄 갯수 1 증가 + '/n'은 white space 이므로 TLINE 리턴
+ */
+[\n] {linenum++;
+return(TLINE);}
 
  /*
  * 나머지 경우는 에러, 유효하지 않은 문자가 포함된 
