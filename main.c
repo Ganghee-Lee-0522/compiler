@@ -1,13 +1,12 @@
 ﻿/*
 * main.c - 각 token에 대한 출력
 * programmer – 최윤지, 윤지윤, 이강희
-* date – 04/26/2023
+* date – 04/27/2023
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h"
-//#include "glob.h"
 extern yylex();
 extern char* yytext;
 extern int linenum;

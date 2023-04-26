@@ -1,3 +1,10 @@
+﻿/*
+* tn.h – token type
+* progrmmer – 최윤지, 윤지윤, 이강희
+* date – 04/27/2023
+*/
+
+// Token 에 관한 정의
 enum tokentypes {
     TEOF, TCONST, TELSE, TIF, TINT, TRETURN, TVOID, TWHILE, TADD,TSUB,TMUL,TDIV,TMOD,TOP, TEQUAL, TNOTEQU, TLESSE,
 	TGREATE,TNOT, TAND, TOR, TINC, TDEC, TADDASSIGN, TSUBASSIGN, TMULASSIGN, TDIVASSIGN, TMODASSIGN, TSPACE,
