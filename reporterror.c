@@ -16,17 +16,17 @@ extern int cErrors; //에러 개수
 void reporterror(enum tokentype tn) {
 	switch (tn) {
 	case ILLSP:
-		printf("%-20d %-35s %-20s %s is illegal IDENT\n", linenum, "***Error***", " ", yytext);
+		printf("%-20d %-30s %-20s %s is illegal IDENT\n", linenum, "***Error***", " ", yytext);
 		cErrors++;
 		break;
 
 	case ILLID:
-		printf("%-20d %-35s %-20s %-1s %-30s\n", linenum, "***Error***", " ", yytext, " starts with digit");
+		printf("%-20d %-30s %-20s %-1s %-30s\n", linenum, "***Error***", " ", yytext, " starts with digit");
 		cErrors++;
 		break;
 
 	case TOOLONG:
-		printf("%-20d %-35s %-20s %-30s %-30s\n", linenum, "***Error***", " ", yytext, "too long IDENT");
+		printf("%-20d %-30s %-20s %-30s %-30s\n", linenum, "***Error***", " ", yytext, "too long IDENT");
 		cErrors++;
 		break;
 	}
