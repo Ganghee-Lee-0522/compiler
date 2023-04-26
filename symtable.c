@@ -25,7 +25,7 @@ typedef struct HTentry {
 }HTentry;
 
 //길이 10이 넘어가면 toolong 에러로 판정.
-enum errorTypes { noerror, illsp, illid, overst, toolong };
+enum errorTypes { NOERROR, ILLSP, ILLID, TOOLONG };
 typedef enum errorTypes ERRORtypes;
 
 char seperators[] = " .,;:?!\t\n";
@@ -103,20 +103,15 @@ toolong : 길이가 10이 넘는 경우.
 */
 void PrintError(ERRORtypes err) {
 	switch (err) {
-	case overst: //ST 공간이 부족한 경우.
-		printf("...Error...\tOVERFLOW");
-		PrintHStable();
-		exit(0);
-		break;
-	case illsp: //유효하지 않은 문자가 섞여나온 경우.
+	case ILLSP: //유효하지 않은 문자가 섞여나온 경우.
 		printf("...Error...\t");
 		for (int i = nextid; i < nextfree; i++) {
-			if (ST[i] == '\n') printf("WOW");
+			if (ST[i] == '\n') printf("ILLSP!");
 			else printf("%c", ST[i]);
 		}
 		printf("\tis not allowed\n");
 		break;
-	case illid: //숫자로 시작하는 경우.
+	case ILLID: //숫자로 시작하는 경우.
 		printf("...Error...\t");
 		while (input != EOF && (isLetter(input) || isDigit(input))) {
 			printf("%c", input);
@@ -124,7 +119,7 @@ void PrintError(ERRORtypes err) {
 		}
 		printf("\tstart with digit\n");
 		break;
-	case toolong: //길이가 10이 넘는 경우.
+	case TOOLONG: //길이가 10이 넘는 경우.
 		printf("...Error...\t");
 		for (int i = nextid; i < nextfree; i++) {
 			printf("%c", ST[i]);
@@ -139,7 +134,7 @@ void PrintError(ERRORtypes err) {
 void SkipSeperators() {
 	while (input != EOF && !(isLetter(input) || isDigit(input))) {
 		if (!isSeperator(input)) { //유효하지 않은 문자가 나온 경우
-			err = illsp; //illsp 에러를 설정
+			err = ILLSP; //illsp 에러를 설정
 			break; //반복문 탈출 (함수 종료)
 		}
 		input = fgetc(fp);
@@ -155,31 +150,25 @@ If first letter is digit, print out error message.*/
 void ReadID() {
 	nextid = nextfree;
 	if (isDigit(input)) { //숫자로 시작하는 경우
-		err = illid;
+		err = ILLID;
 		PrintError(err); //에러 출력
 	}
 	else {
 		//구분자가 나올 때까지 반복. 즉 한 덩어리의 단어가 끝날 때까지 반복.
 		while (input != EOF && isSeperator(input) == 0) {
-			//ST 공간 부족
-			if (nextfree == STsize) {
-				err = overst;
-				nextfree = nextid;
-				PrintError(err); //에러 출력
-			}
 			//유효하지 않은 문자인 경우 ( & 처럼 구분자도, 알파벳도, 숫자도 아닌 경우 )
 			if (!(isLetter(input) || isDigit(input))) {
-				err = illsp; //에러 상태를 illsp로 설정 (에러 출력은 나중에 하게 됨)
+				err = ILLSP; //에러 상태를 illsp로 설정 (에러 출력은 나중에 하게 됨)
 			}
 			ST[nextfree++] = input;
 			input = fgetc(fp);
 		}
-		if (err == illsp) { // illsp 에러, 즉 유효하지 않은 문자가 섞여 나왔을 경우
+		if (err == ILLSP) { // illsp 에러, 즉 유효하지 않은 문자가 섞여 나왔을 경우
 			PrintError(err); //에러 출력
 			nextfree = nextid;
 		}
 		else if (nextfree - nextid > 10) { //길이가 10을 넘을 경우
-			err = toolong;
+			err = TOOLONG;
 			PrintError(err); //에러 출력
 			nextfree = nextid;
 		}
@@ -246,12 +235,6 @@ int SymbolTable()
 {
 
 	nextid = nextfree;
-
-
-	//ST overflow 발생 시
-	if (nextfree == STsize) {
-		reporterror(overst);
-	}
 
 	// yytext 한글자씩 ST에 넣음
 	for (int i = 0; i < yyleng; i++) {
