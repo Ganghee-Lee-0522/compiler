@@ -2,11 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h"
+extern int linenum;
+extern reporterror(enum tnumber tn);
 %}
 %%
-"//".*  ;
-[A-Za-z_][A-Za-z0-9_]*  return(TIDENT);
-[1-9][0-9]*|0([0-7]+|(x|X)[0-9A-Fa-f]*)?    return(TNUMBER);
 "const" return(TCONST);
 "else" return(TELSE);
 "if" return(TIF);
@@ -36,6 +35,11 @@
 ">" return(TGREATE);
 "++" return(TINC);
 "--" return(TDEC);
+[A-Za-z_][A-Za-z0-9_]* {
+    if(yyleng>10){
+        reporterror(TLONG);
+    }return(TIDENT)};
+[1-9][0-9]*	return(TNUMBER);
 "("  return(TBRASL);
 ")"  return(TBRASR);
 "{"  return(TBRAML);
@@ -44,8 +48,10 @@
 "]"  return(TBRALR);
 ","  return(TCOMMA);
 ";"  return(TSEMICOLON);
+"/*"([^*]|\*+[^*/])*\**"*/"   ;
+"\n" linenum++;
 [ \t\n] ;
-.   return(yytext[0]);
+.   return(TERROR);
 %%
 int yywrap()
 {
