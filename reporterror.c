@@ -1,4 +1,10 @@
-﻿#include <stdio.h>
+/*
+* reporterror.c – error에 대한 report를 따로 처리
+* progrmmer – 최윤지, 윤지윤, 이강희
+* date – 04 / 27 / 2023
+*/
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "tn.h"
