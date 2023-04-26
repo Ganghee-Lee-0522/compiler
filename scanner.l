@@ -2,10 +2,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h"
-extern int linenum;
-extern reporterror(enum tnumber tn);
+extern int linenum; //라인수 세는 
+extern reporterror(enum tnumber tn); //에러 출력하는 함수
 %}
 %%
+//주석문
+"//".*  return(TCMT);
+
+//Identifier
+[A-Za-z_][A-Za-z0-9_]* {
+    if(yyleng>10){
+        reporterror(TOOLONG);
+    }return(TIDENT)};
+    
+//Constant
+[0-9]+	return(TNUMBER);
+
+//예약어
 "const" return(TCONST);
 "else" return(TELSE);
 "if" return(TIF);
@@ -13,6 +26,8 @@ extern reporterror(enum tnumber tn);
 "return" return(TRETURN);
 "void" return(TVOID);
 "while" return(TWHILE);
+
+//연산자
 "+"  return(TADD);
 "-" return(TSUB);
 "*" return(TMUL);
@@ -35,11 +50,8 @@ extern reporterror(enum tnumber tn);
 ">" return(TGREATE);
 "++" return(TINC);
 "--" return(TDEC);
-[A-Za-z_][A-Za-z0-9_]* {
-    if(yyleng>10){
-        reporterror(TOOLONG);
-    }return(TIDENT)};
-[0-9]+	return(TNUMBER);
+
+//Special Symbols
 "("  return(TBRASL);
 ")"  return(TBRASR);
 "{"  return(TBRAML);
@@ -48,10 +60,12 @@ extern reporterror(enum tnumber tn);
 "]"  return(TBRALR);
 ","  return(TCOMMA);
 ";"  return(TSEMICOLON);
-"//".*  return(TCMT);
-"\n" linenum++;
+
+//White spaces
 [ \t\n] return(TSPACE);
 .   reporterror(ILLSP);
+
+"\n" linenum++;
 %%
 int yywrap()
 {
