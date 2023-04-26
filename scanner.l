@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h"
+#include "glob.h"
 extern int linenum; /*라인수 세는 변수*/ 
 extern reporterror(enum tnumber tn); /*에러 출력하는 함수*/
 %}
@@ -20,7 +21,7 @@ D	[0-9]
 "\n" linenum++;
 "//".*  return(TCMT);
 {A}({A}|{D})* {
-    if(yyleng>10){ 
+    if(yyleng>MaxIdentLen){ 
         reporterror(TOOLONG);
     }
     else {
