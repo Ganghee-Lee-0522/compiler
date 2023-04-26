@@ -567,7 +567,11 @@ YY_DECL
 #line 15 "scanner.l"
 
 
-#line 571 "lex.yy.c"
+ /*
+ * Keyword
+ */
+
+#line 575 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -652,53 +656,62 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 17 "scanner.l"
+#line 21 "scanner.l"
 return(TCONST);
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 18 "scanner.l"
+#line 22 "scanner.l"
 return(TELSE);
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 19 "scanner.l"
+#line 23 "scanner.l"
 return(TIF);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 20 "scanner.l"
+#line 24 "scanner.l"
 return(TINT);
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 21 "scanner.l"
+#line 25 "scanner.l"
 return(TRETURN);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 22 "scanner.l"
+#line 26 "scanner.l"
 return(TVOID);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 23 "scanner.l"
+#line 27 "scanner.l"
 return(TWHILE);
 	YY_BREAK
+/*
+ * 줄바꿈 시 줄 갯수 1 증가 + '/n'은 white space 이므로 TSPACE return
+ */
 case 8:
 YY_RULE_SETUP
-#line 24 "scanner.l"
+#line 32 "scanner.l"
 {linenum++;
 return(TSPACE);}
 	YY_BREAK
+/*
+ * 주석
+ */
 case 9:
 YY_RULE_SETUP
-#line 26 "scanner.l"
+#line 38 "scanner.l"
 return(TCMT);
 	YY_BREAK
+/*
+ * Identifier MacIdentLen(10)보다 크면 에러
+ */
 case 10:
 YY_RULE_SETUP
-#line 27 "scanner.l"
+#line 43 "scanner.l"
 {
     if(yyleng>MaxIdentLen){ 
         reporterror(TOOLONG);
@@ -708,184 +721,202 @@ YY_RULE_SETUP
     }
 }
 	YY_BREAK
+/*
+ * 숫자로 시작하는 Identifier는 에러
+ */
 case 11:
 YY_RULE_SETUP
-#line 35 "scanner.l"
+#line 55 "scanner.l"
 { 
 reporterror(ILLID);
 }
 	YY_BREAK
+/*
+ * constant
+ */
 case 12:
 YY_RULE_SETUP
-#line 38 "scanner.l"
+#line 62 "scanner.l"
 return(TNUMBER);
 	YY_BREAK
+/*
+ * operator
+ */
 case 13:
 YY_RULE_SETUP
-#line 39 "scanner.l"
+#line 67 "scanner.l"
 return(TADD);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 40 "scanner.l"
+#line 68 "scanner.l"
 return(TSUB);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 41 "scanner.l"
+#line 69 "scanner.l"
 return(TMUL);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 42 "scanner.l"
+#line 70 "scanner.l"
 return(TDIV);
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 43 "scanner.l"
+#line 71 "scanner.l"
 return(TMOD);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 44 "scanner.l"
+#line 72 "scanner.l"
 return(TOP);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 45 "scanner.l"
+#line 73 "scanner.l"
 return(TADDASSIGN);
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 46 "scanner.l"
+#line 74 "scanner.l"
 return(TSUBASSIGN);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 47 "scanner.l"
+#line 75 "scanner.l"
 return(TMULASSIGN);
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 48 "scanner.l"
+#line 76 "scanner.l"
 return(TDIVASSIGN);
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 49 "scanner.l"
+#line 77 "scanner.l"
 return(TMODASSIGN);
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 50 "scanner.l"
+#line 78 "scanner.l"
 return(TNOT);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 51 "scanner.l"
+#line 79 "scanner.l"
 return(TAND);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 52 "scanner.l"
+#line 80 "scanner.l"
 return(TOR);
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 53 "scanner.l"
+#line 81 "scanner.l"
 return(TEQUAL);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 54 "scanner.l"
+#line 82 "scanner.l"
 return(TNOTEQU);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 55 "scanner.l"
+#line 83 "scanner.l"
 return(TLESSE);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 56 "scanner.l"
+#line 84 "scanner.l"
 return(TGREATE);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 57 "scanner.l"
+#line 85 "scanner.l"
 return(TLESSE);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 58 "scanner.l"
+#line 86 "scanner.l"
 return(TGREATE);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 59 "scanner.l"
+#line 87 "scanner.l"
 return(TINC);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 60 "scanner.l"
+#line 88 "scanner.l"
 return(TDEC);
 	YY_BREAK
+/*
+ * Special Symbols
+ */
 case 35:
 YY_RULE_SETUP
-#line 61 "scanner.l"
+#line 93 "scanner.l"
 return(TBRASL);
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 62 "scanner.l"
+#line 94 "scanner.l"
 return(TBRASR);
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 63 "scanner.l"
+#line 95 "scanner.l"
 return(TBRAML);
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 64 "scanner.l"
+#line 96 "scanner.l"
 return(TBRAMR);
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 65 "scanner.l"
+#line 97 "scanner.l"
 return(TBRALL);
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 66 "scanner.l"
+#line 98 "scanner.l"
 return(TBRALR);
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 67 "scanner.l"
+#line 99 "scanner.l"
 return(TCOMMA);
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 68 "scanner.l"
+#line 100 "scanner.l"
 return(TSEMICOLON);
 	YY_BREAK
+/*
+ * white spaces
+ */
 case 43:
 YY_RULE_SETUP
-#line 69 "scanner.l"
+#line 105 "scanner.l"
 return(TSPACE);
 	YY_BREAK
+/*
+ * 나머지 경우는 에러, 유효하지 않은 문자가 포함된 
+ */
 case 44:
 YY_RULE_SETUP
-#line 70 "scanner.l"
+#line 110 "scanner.l"
 reporterror(ILLSP);
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 71 "scanner.l"
+#line 111 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 889 "lex.yy.c"
+#line 920 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1469,7 +1500,7 @@ FILE *file;
 #if YY_NEVER_INTERACTIVE
 	b->yy_is_interactive = 0;
 #else
-	b->yy_is_interactive = file ? (isatty( _fileno(file) ) > 0) : 0;
+	b->yy_is_interactive = file ? (isatty( fileno(file) ) > 0) : 0;
 #endif
 #endif
 	}
@@ -1745,7 +1776,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 71 "scanner.l"
+#line 111 "scanner.l"
 
 int yywrap()
 {
