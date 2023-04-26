@@ -6,28 +6,43 @@ extern int linenum; /*라인수 세는 변수*/
 extern reporterror(enum tnumber tn); /*에러 출력하는 함수*/
 %}
 
-A	[a-zA-Z_]  
 /*
 *letter
 */
-D	[0-9]  /*number*/
+A	[a-zA-Z_]  
+/*
+*number
+*/
+D	[0-9]  
 %%
 
 /*주석문*/
 "//".*  return(TCMT);
 
-/*Identifier*/
+/*
+*Identifier
+*/
 {A}({A}|{D})* {
-    if(yyleng>10){ // 길이가 10이 넘어가는 경우 에러
+/*
+*길이가 10이 넘어가는 경우 에러
+*/
+    if(yyleng>10){ 
         reporterror(TOOLONG);
     }return(TIDENT)};
-{D}({A}|{D})*{A}({A}|{D})* { // 숫자로 시작하는 경우 에러
+    /*
+    *숫자로 시작하는 경우 에러
+    */
+{D}({A}|{D})*{A}({A}|{D})* { 
 reporterror(ILLID);
 }
-/*Constant*/
+/*
+*Constant
+*/
 {D}+	return(TNUMBER);
 
-/*예약어*/
+/*
+*예약어
+*/
 "const" return(TCONST);
 "else" return(TELSE);
 "if" return(TIF);
@@ -36,7 +51,9 @@ reporterror(ILLID);
 "void" return(TVOID);
 "while" return(TWHILE);
 
-/*연산자*/
+/*
+*연산자
+*/
 "+"  return(TADD);
 "-" return(TSUB);
 "*" return(TMUL);
@@ -60,7 +77,9 @@ reporterror(ILLID);
 "++" return(TINC);
 "--" return(TDEC);
 
-/*Special Symbols*/
+/*
+*Special Symbols
+*/
 "("  return(TBRASL);
 ")"  return(TBRASR);
 "{"  return(TBRAML);
@@ -70,11 +89,14 @@ reporterror(ILLID);
 ","  return(TCOMMA);
 ";"  return(TSEMICOLON);
 
-/*White spaces*/
+/*
+*White spaces
+*/
 [ \t\n] return(TSPACE);
 .   reporterror(ILLSP);
 
 "\n" linenum++;
+
 %%
 int yywrap()
 {
