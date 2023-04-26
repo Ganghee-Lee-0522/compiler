@@ -15,8 +15,8 @@ extern reporterror(enum tokentype tn);
 
 typedef struct HTentry* HTpointer;
 typedef struct HTentry {
-	int index; //index of identifier in ST
-	HTpointer next; //pointer to next identifier
+	int index; //ST에 있는 identifier의 인덱스
+	HTpointer next; //다음 identifier에 대한 포인터
 }HTentry;
 
 HTpointer HT[HTsize];
