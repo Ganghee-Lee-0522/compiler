@@ -98,12 +98,12 @@ reporterror(ILLID);
  /*
  * white spaces
  */
-[ ] return(TSPACE);
-[\t] return(TTAB);
+"\t" return(TTAB);
+" " return(TSPACE);
  /*
  * 줄바꿈 시 줄 갯수 1 증가 + '/n'은 white space 이므로 TLINE 리턴
  */
-[\n] {linenum++;
+"\n" {linenum++;
 return(TLINE);}
 
  /*
