@@ -1,10 +1,13 @@
-/*
-* main.c - lexical analyzer for Scanner : main (HW2)
+ï»¿/*
+* main.c - ê° tokenì— ëŒ€í•œ ì¶œë ¥
+* programmer â€“ ìµœìœ¤ì§€, ìœ¤ì§€ìœ¤, ì´ê°•í¬
+* date â€“ 04/26/2023
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h"
+#include "global.h"
 extern yylex();
 extern char* yytext;
 extern int linenum;
@@ -13,18 +16,50 @@ extern int cErrors;
 
 /*
 * printToken
-* line number, token type, ST index (identÀÎ °æ¿ì¸¸), TokenÀ» ÇÁ¸°Æ®
+* line number, token type, ST index (identì¸ ê²½ìš°ë§Œ), Tokenì„ í”„ë¦°íŠ¸
 */
+void main()
+{
+    // token typeì„ ì €ì¥í•  ë³€ìˆ˜ ì„ ì–¸
+    enum tokentypes tn;
+
+    // print header
+    printf("=========================================================================================================\n");
+    printf("%-20s %-30s %-20s %-30s\n", "Line number", "Token type", "ST-index", "Token");
+    printf("=========================================================================================================\n");
+    
+
+    // tokenë³„ ì¶œë ¥
+    while((tn=yylex()) != TEOF){
+        printToken(tn);
+    }
+
+    // error ê°œìˆ˜ ì¶œë ¥
+    if (cErrors == 0) {
+        printf("=========================================================================================================\n");
+        printf("No errors detected\n");
+        printf("=========================================================================================================\n");
+
+    }
+    else {
+        printf("=========================================================================================================\n");
+        printf("%d errors detected\n", cErrors);
+        printf("=========================================================================================================\n");
+
+    }
+
+}
+
 void printToken(enum tokentypes tn) {
     switch (tn) {
 
-        // ÁÖ¼®
+        // ì£¼ì„
     case TCMT:
         printf("%-20d %-30s %-20s %-30s\n", linenum, "comment", " ", yytext);
         break;
-        
+
         // keyword
-    case TCONST: 
+    case TCONST:
     case TELSE:
     case TIF:
     case TINT:
@@ -44,10 +79,10 @@ void printToken(enum tokentypes tn) {
     case TMUL:
         printf("%-20d %-30s %-20s %-30s\n", linenum, "multiplication", " ", yytext);
         break;
-    case TDIV: 
+    case TDIV:
         printf("%-20d %-30s %-20s %-30s\n", linenum, "division", " ", yytext);
         break;
-    case TMOD: 
+    case TMOD:
         printf("%-20d %-30s %-20s %-30s\n", linenum, "modulo", " ", yytext);
         break;
     case TOP: // "="
@@ -97,11 +132,11 @@ void printToken(enum tokentypes tn) {
         break;
 
         // number
-    case TNUMBER: 
+    case TNUMBER:
         printf("%-20d %-30s %-20s %-30s\n", linenum, "number", " ", yytext);
         break;
 
-        // °ıÈ£
+        // ê´„í˜¸
     case TBRASL: // "("
         printf("%-20d %-30s %-20s %-30s\n", linenum, "open small bracket", " ", yytext);
         break;
@@ -127,27 +162,4 @@ void printToken(enum tokentypes tn) {
         printf("%-20d %-30s %-20s %-30s\n", linenum, "semicolon", " ", yytext);
         break;
     }
-}
-
-
-
-
-
-void main()
-{
-    // token typeÀ» ÀúÀåÇÒ º¯¼ö ¼±¾ğ
-    enum tokentypes tn;
-
-    // Ç¥ ¸¸µé±â
-    printf("=========================================================================================================\n");
-    printf("%-20s %-30s %-20s %-30s\n", "Line number", "Token type", "ST-index", "Token");
-    printf("=========================================================================================================\n");
-    
-
-    // tokenº° Ãâ·Â
-    while((tn=yylex()) != TEOF){
-        printToken(tn);
-    }
-
-    printf("\n1976393 ÃÖÀ±Áö\n2076278 À±ÁöÀ±\n2076285 ÀÌ°­Èñ");
 }
