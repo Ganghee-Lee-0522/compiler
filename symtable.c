@@ -1,4 +1,10 @@
-﻿#include <stdio.h>
+/*
+* symtable.c – identifier들의 hashcode를 계산하고 st에 삽입
+* progrmmer – 최윤지, 윤지윤, 이강희
+* date – 04 / 27 / 2023
+*/
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "tn.h"
