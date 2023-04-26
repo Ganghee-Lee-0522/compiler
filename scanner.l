@@ -37,9 +37,9 @@ extern reporterror(enum tnumber tn);
 "--" return(TDEC);
 [A-Za-z_][A-Za-z0-9_]* {
     if(yyleng>10){
-        reporterror(TLONG);
+        reporterror(TOOLONG);
     }return(TIDENT)};
-[1-9][0-9]*	return(TNUMBER);
+[0-9]+	return(TNUMBER);
 "("  return(TBRASL);
 ")"  return(TBRASR);
 "{"  return(TBRAML);
@@ -48,10 +48,10 @@ extern reporterror(enum tnumber tn);
 "]"  return(TBRALR);
 ","  return(TCOMMA);
 ";"  return(TSEMICOLON);
-"/*"([^*]|\*+[^*/])*\**"*/"   ;
+"//".*  return(TCMT);
 "\n" linenum++;
-[ \t\n] ;
-.   return(TERROR);
+[ \t\n] return(TSPACE);
+.   reporterror(ILLSP);
 %%
 int yywrap()
 {
