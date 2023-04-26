@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tn.h"
-extern int linenum; //linenumber->cline
+extern int linenum; 
 extern char* yytext;
 extern int cErrors; //에러 개수
 
