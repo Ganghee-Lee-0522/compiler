@@ -96,11 +96,6 @@ void printToken(enum tokentypes tn) {
         printf("%-20d %-30s %-20s %-30s\n", linenum, "mod assign", " ", yytext);
         break;
 
-        // identifier
-    case TIDENT: 
-        printf("%-20d %-30s %-20s %-30s\n", linenum, "add assign", " ", yytext);
-        break;
-
         // number
     case TNUMBER: 
         printf("%-20d %-30s %-20s %-30s\n", linenum, "number", " ", yytext);
