@@ -31,15 +31,10 @@ void main() {
 	yyparse();
 
 	printf("==================================================================================\n");
-	printf("\n\t\t  ===> Parsing ends.***");
+	printf("\n\t\t  ===> Parsing ends.***\n");
 
 
-  //no로 할지 0으로 할지
-	if (cErrors == 0) {
-		printf("\t no errors detected\n\n\n\n");
-	}
-	else
-    printf("\t %d error(s) detected\n\n\n\n", cErrors);
+    	printf("\t %d error(s) detected\n\n\n\n", cErrors);
 
 	/* HS테이블 출력*/
 	PrintHStable();
