@@ -16,8 +16,8 @@ extern void PrintHStable();
 
 void main() {
 
-	//look_id = (HTptr)malloc(sizeof(struct HTentry));
-	//look_tmp = (HTptr)malloc(sizeof(struct HTentry));
+	look_id = (HTptr)malloc(sizeof(struct HTentry));
+	look_tmp = (HTptr)malloc(sizeof(struct HTentry));
 
 	printf("\n\n\t\t\t    ***MiniC parsing begins\n");
 	printf("==================================================================================\n");
