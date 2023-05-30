@@ -9,7 +9,7 @@
 */
 
 /*
-HT, ST Å©±â Á¤ÀÇ, ½Äº°ÀÚ ÃÖ´ë±æÀÌ Á¤ÀÇ
+HT, ST í¬ê¸° ì •ì˜, ì‹ë³„ì ìµœëŒ€ê¸¸ì´ ì •ì˜
 */
 
 #define STsize 1000
@@ -19,15 +19,15 @@ HT, ST Å©±â Á¤ÀÇ, ½Äº°ÀÚ ÃÖ´ë±æÀÌ Á¤ÀÇ
 #define MaxIdentLen 12
 
 /*
-* Æ÷ÀÎÅÍ HTptr, HTentry ±¸Á¶Ã¼
-* HTentry¸¦ °¡¸®Å°´Â HTptr
+* í¬ì¸í„° HTptr, HTentry êµ¬ì¡°ì²´
+* HTentryë¥¼ ê°€ë¦¬í‚¤ëŠ” HTptr
 */
 typedef struct HTentry *HTptr;
 
 /*
-* index: ST ÀĞÀ»¶§ »ç¿ë
-* type: case ±¸ºĞÇÏ±â À§ÇÑ º¯¼ö
-* cLine: ÄÚµå ÁÙ ¼ö ´ã´Â º¯¼ö
+* index: ST ì½ì„ë•Œ ì‚¬ìš©
+* type: case êµ¬ë¶„í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
+* cLine: ì½”ë“œ ì¤„ ìˆ˜ ë‹´ëŠ” ë³€ìˆ˜
 */
 typedef struct HTentry {
 	int index;
@@ -45,8 +45,8 @@ HTptr look_tmp;
 char ST[STsize];
 
 /*
-* nextid: ÇöÀç identifierÀÇ ½ÃÀÛ index
-* nextfree: ST¿¡¼­ ´ÙÀ½ character°¡ »ğÀÔµÉ °÷ÀÇ index
+* nextid: í˜„ì¬ identifierì˜ ì‹œì‘ index
+* nextfree: STì—ì„œ ë‹¤ìŒ characterê°€ ì‚½ì…ë  ê³³ì˜ index
 */
 int nextid;
 int nextfree;
@@ -57,20 +57,20 @@ char *yytext;
 
 /*
 * errorTypes
-* wrong_funcdef: Àß¸øµÈ function Á¤ÀÇ
-* nosemi : semicolon ºüÁü
-* nobrace : Áß°ıÈ£ »ı·«µÈ °æ¿ì
-* nobracket: ´ë°ıÈ£ »ı·«µÈ °æ¿ì
+* wrong_funcdef: ì˜ëª»ëœ function ì •ì˜
+* nosemi : semicolon ë¹ ì§
+* nobrace : ì¤‘ê´„í˜¸ ìƒëµëœ ê²½ìš°
+* nobracket: ëŒ€ê´„í˜¸ ìƒëµëœ ê²½ìš°
 *
 */
-enum errorTypes { wrong_funcdef, nosemi, nobrace, nobracket, tlong, toverflow,nocomma , wrong_st};
+enum errorTypes { wrong_funcdef, nosemi, nobrace, nobracket, tlong, toverflow};
 typedef enum errorTypes ERRORtypes;
 ERRORtypes err;
 
 /*
-* cErrors: ¿¡·¯ °³¼ö ¼¼±â
-* cLine: ÄÚµå ÁÙ ¼ö ¼¼±â
-* found: symtable.c ¿¡¼­ »ç¿ëÇÏ´Â °Ë»ö¿ë flag
+* cErrors: ì—ëŸ¬ ê°œìˆ˜ ì„¸ê¸°
+* cLine: ì½”ë“œ ì¤„ ìˆ˜ ì„¸ê¸°
+* found: symtable.c ì—ì„œ ì‚¬ìš©í•˜ëŠ” ê²€ìƒ‰ìš© flag
 */
 int cErrors;
 int cLine;
