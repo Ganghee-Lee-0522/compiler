@@ -8,7 +8,6 @@
 #include "tn.h"
 #include "glob.h"
 
-extern reporterror(enum tnumber tn); /*에러 출력하는 함수*/
 extern ComputeHS(int nid, int nfree);
 extern LookupHS(int nid, int nfree);
 extern SymbolTable();
