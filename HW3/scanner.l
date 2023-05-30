@@ -36,9 +36,6 @@ D	[0-9]
 "while" return(TWHILE);
 
 
-/*float?????????*/
-
-
  /*
  * 주석
  */
