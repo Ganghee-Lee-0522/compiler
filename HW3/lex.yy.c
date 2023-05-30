@@ -738,7 +738,7 @@ case 11:
 YY_RULE_SETUP
 #line 61 "scanner.l"
 { 
-reporterror(ILLID);
+reporterror(TILLIDENT);
 }
 	YY_BREAK
 /*
@@ -926,7 +926,7 @@ YY_RULE_SETUP
 case 45:
 YY_RULE_SETUP
 #line 119 "scanner.l"
-reporterror(ILLSP);
+{yyerror("scanner error : illegal separator");}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
