@@ -116,7 +116,7 @@ reporterror(TILLIDENT);
  /*
  * 나머지 경우는 에러, 유효하지 않은 문자가 포함된 
  */
-.   reporterror(ILLSP);
+.   {yyerror("scanner error : illegal separator");}
 %%
 
 int yywrap()
