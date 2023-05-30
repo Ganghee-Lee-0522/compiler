@@ -59,7 +59,7 @@ D	[0-9]
  * 숫자로 시작하는 Identifier는 에러
  */
 {D}({A}|{D})*{A}({A}|{D})* { 
-reporterror(ILLID);
+reporterror(TILLIDENT);
 }
 
  /*
