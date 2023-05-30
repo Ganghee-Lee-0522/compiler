@@ -8,7 +8,6 @@
 #include "tn.h"
 #include "glob.h"
 
-extern reporterror(enum tnumber tn); /*에러 출력하는 함수*/
 extern ComputeHS(int nid, int nfree);
 extern LookupHS(int nid, int nfree);
 extern SymbolTable();
@@ -31,6 +30,7 @@ D	[0-9]
 "else" return(TELSE);
 "if" return(TIF);
 "int" return(TINT);
+"float" return(TFLOAT);
 "return" return(TRETURN);
 "void" return(TVOID);
 "while" return(TWHILE);
@@ -38,15 +38,17 @@ D	[0-9]
 
  /*
  * 주석
+ "//".*  return(TCMT);
  */
-"//".*  return(TCMT);
+
+\/\/.* ;
 
  /*
  * Identifier MacIdentLen(10)보다 크면 에러
  */
 {A}({A}|{D})* {
     if(yyleng>MaxIdentLen){ 
-        reporterror(TOOLONG);
+        reporterror(TLONG);
     }
     else {
         SymbolTable();
@@ -68,51 +70,48 @@ reporterror(ILLID);
  /*
  * operator
  */
-"+"  return(TADD);
-"-" return(TSUB);
-"*" return(TMUL);
-"/" return(TDIV);
+"+" return(TPLUS);
+"-" return(TMINUS);
+"*" return(TSTAR);
+"/" return(TSLASH);
 "%" return(TMOD);
-"=" return(TOP);
+"=" {return(TASSIGN);}
 "+=" return(TADDASSIGN);
 "-=" return(TSUBASSIGN);
 "*=" return(TMULASSIGN);
 "/=" return(TDIVASSIGN);
 "%=" return(TMODASSIGN);
-"!"  return(TNOT);
+"!" return(TNOT);
 "&&" return(TAND);
 "||" return(TOR);
 "==" return(TEQUAL);
 "!=" return(TNOTEQU);
+"<" return(TLESS);
+">" return(TOVER);
 "<=" return(TLESSE);
-">=" return(TGREATE);
-"<" return(TLESSE);
-">" return(TGREATE);
+">=" return(TOVERE);
 "++" return(TINC);
 "--" return(TDEC);
 
  /*
  * Special Symbols
  */
-"("  return(TBRASL);
-")"  return(TBRASR);
-"{"  return(TBRAML);
-"}"  return(TBRAMR);
-"["  return(TBRALL);
-"]"  return(TBRALR);
-","  return(TCOMMA);
-";"  return(TSEMICOLON);
+"(" {return(TOSBRA);}
+")" { return(TCSBRA);}
+"," {return(TCOMMA);}
+"{" return(TOMBRA);
+"}" return(TCMBRA);
+"[" return(TOLBRA);
+"]" return(TCLBRA);
+";" {return(TSEMI);}
 
  /*
- * white spaces
+ * White spaces
  */
-"\t" return(TTAB);
-" " return(TSPACE);
- /*
- * 줄바꿈 시 줄 갯수 1 증가 + '\n'은 white space 이므로 TLINE 리턴
- */
-"\n" {linenum++;
-return(TLINE);}
+[ \t] ;
+[\n] {
+  cLine++;
+}
 
  /*
  * 나머지 경우는 에러, 유효하지 않은 문자가 포함된 
