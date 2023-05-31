@@ -1,9 +1,6 @@
-int noError=0;
-void erroy(){
-	int i = 3;
+int array(){
+int a[10];
+int i =1;
+a[0] = i;
+return 0;
 }
-
-void kk(int m){
-	return m;
-}
-	

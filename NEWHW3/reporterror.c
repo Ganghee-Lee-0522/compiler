@@ -1,11 +1,9 @@
-/*
-* reporterror.c - ¿¡·¯ Ãâ·Â (HW3)
-*
-* Programmer - team2
-*
-* date - 5/26/2021
-*
+ï»¿/*
+* reporterror.c â€“ errorì— ëŒ€í•œ reportë¥¼ ë”°ë¡œ ì²˜ë¦¬
+* progrmmer â€“ ìµœìœ¤ì§€, ìœ¤ì§€ìœ¤, ì´ê°•í¬
+* date â€“ 06 / 01 / 2023
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,58 +12,53 @@
 
 
 
-extern char *yytext;
+extern char* yytext;
 extern yylex();
 
 
 /*
-* yyerror() - »ç¿ëÀÚ error ¸Ş¼¼Áö Á÷Á¢ Ãâ·Â ÇÔ¼ö
+* yyerror() - ì‚¬ìš©ì error ë©”ì„¸ì§€ ì§ì ‘ ì¶œë ¥ í•¨ìˆ˜
 */
-void yyerror(char *s) {
-	if (s != "parse error") { //parser_tab.c¿¡¼­ ¹ß»ıÇÑ parse¿¡·¯°¡ ¾Æ´Ñ°æ¿ì
-		printf("\t%-5d %-10s %-50s\n", cLine, yytext, s);//¿¡·¯ ¸Ş¼¼Áö Ãâ·Â
-		cErrors++;//¿¡·¯¼ö 1 Áõ°¡ 
-	}
+void yyerror(char* s) {
+    if (s != "parse error") { //parser_tab.cì—ì„œ ë°œìƒí•œ parseì—ëŸ¬ê°€ ì•„ë‹Œê²½ìš°
+        printf("\t%-5d %-10s %-50s\n", cLine, yytext, s);//ì—ëŸ¬ ë©”ì„¸ì§€ ì¶œë ¥
+        cErrors++;//ì—ëŸ¬ìˆ˜ 1 ì¦ê°€ 
+    }
 }
 
 
 /* reporterror
-* token typeº°·Î ¿¡·¯¸¦ ³ª´©°í, ¿¡·¯ ¼ö¸¦ 1¾¿ Áõ°¡½ÃÅ² ÈÄ, ÇØ´ç ¿¡·¯¹® Ãâ·Â
-* 0)wrong_funcdef : ¿Ã¹Ù¸£Áö ¾ÊÀº ÇÔ¼ö ¼±¾ğ
-* 1)nosemi : semicolonÀ» »ç¿ëÇÏÁö ¾ÊÀº °æ¿ì
-* 2)nobrace : ¿Ã¹Ù¸£Áö ¾ÊÀº Çü½ÄÀÇ Áß°ı¿ä »ç¿ë(missing brace)
-* 3)nobraket : ¿Ã¹Ù¸£Áö ¾ÊÀº Çü½ÄÀÇ ´ë°ıÈ£ »ç¿ë
-* 4)long : 10ÀÚ¸¦ ÃÊ°úÇÏ´Â identifier
-* 5)overflow : tableÀÇ size¸¦ ÃÊ°úÇÑ °æ¿ì
+*ì—ëŸ¬ë¬¸ ì¶œë ¥í•¨ìˆ˜
+*cErrors = ì—ëŸ¬ ê°¯ìˆ˜ ì„¸ëŠ” ë³€ìˆ˜, ì—ëŸ¬ê°€ ìˆì„ ë•Œë§ˆë‹¤ +1
 */
 void reporterror(ERRORtypes err) {
-	switch (err) {
-	case 0: //wrong_funcdef
-		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Wrong function definition");
-		cErrors++;
-		break;
+    switch (err) {
+    case 0: //ì˜¬ë°”ë¥´ì§€ ì•Šì€ í•¨ìˆ˜ ì„ ì–¸
+        printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Wrong function definition");
+        cErrors++;
+        break;
 
-	case 1: //nosemi
-		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Missing semicolon");
-		cErrors++;
-		break;
+    case 1://semicolon ìƒëµë¨
+        printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Missing semicolon");
+        cErrors++;
+        break;
 
-	case 2: //nobrace (Áß°ıÈ£)
-		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Missing brace");
-		cErrors++;
-		break;
-	case 3: //nobraket (´ë°ıÈ£)
-		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Missing bracket");
-		cErrors++;
-		break;
-	case 4: //long 
-		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Long identifier");
-		cErrors++;
-		break;
-	case 5: //overflow
-		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Overflow");
-		cErrors++;
-		break;
+    case 2://ì¤‘ê´„í˜¸ ì˜¤ë¥˜
+        printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Missing brace");
+        cErrors++;
+        break;
+    case 3: //ëŒ€ê´„í˜¸ ì˜¤ë¥˜
+        printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Missing bracket");
+        cErrors++;
+        break;
+    case 4:  //identifier 10ì ì´ˆê³¼ 
+        printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Long identifier");
+        cErrors++;
+        break;
+    case 5: //table ì‚¬ì´ì¦ˆ ì´ˆê³¼ë¡œ overflow
+        printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Overflow");
+        cErrors++;
+        break;
 
-	}
+    }
 }

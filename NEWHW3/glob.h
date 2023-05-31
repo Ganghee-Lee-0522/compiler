@@ -1,55 +1,35 @@
-
+ï»¿
 /*
-* glob.h - global variable for the project(HW3)
-*
-* Programmer - team2
-*
-* date -  5/26/2021
-*
+* glob.h - global variable for the project
+* progrmmer â€“ ìµœìœ¤ì§€, ìœ¤ì§€ìœ¤, ì´ê°•í¬
+* date â€“ 06 / 01 / 2023
 */
 
-/*
-HT, ST Å©±â Á¤ÀÇ, ½Äº°ÀÚ ÃÖ´ë±æÀÌ Á¤ÀÇ
-*/
-
-#define STsize 1000
-#define HTsize 100
+#define STsize 1000 // ST í¬ê¸°
+#define HTsize 100 // HT í¬ê¸°
 #define FALSE 0
 #define TRUE 1
-#define MaxIdentLen 10
+#define MaxIdentLen 10 // identifierì˜ ìµœëŒ€ ê¸¸ì´
 
-/*
-* Æ÷ÀÎÅÍ HTptr, HTentry ±¸Á¶Ã¼
-* HTentry¸¦ °¡¸®Å°´Â HTptr
-*/
-typedef struct HTentry *HTptr;
+typedef struct HTentry *HTpointer; // HTentryë¥¼ ê°€ë¦¬í‚¤ëŠ” HTpointer
 
-/*
-* index: ST ÀĞÀ»¶§ »ç¿ë
-* type: case ±¸ºĞÇÏ±â À§ÇÑ º¯¼ö
-* cLine: ÄÚµå ÁÙ ¼ö ´ã´Â º¯¼ö
-*/
 typedef struct HTentry {
-	int index;
-	int type;
-	int cLine;
-	HTptr next;
+	int index; // ST ì½ê¸° ìœ„í•´ ì‚¬ìš©
+	int type; // case êµ¬ë¶„ì„ ìœ„í•´ ì‚¬ìš©
+	int cLine; // ì½”ë“œ line
+	HTpointer next;
 };
 
 
-HTptr HT[HTsize];
-HTptr look_id;
-HTptr look_tmp;
+HTpointer HT[HTsize];
+HTpointer look_id;
+HTpointer look_tmp;
 
 
 char ST[STsize];
 
-/*
-* nextid: ÇöÀç identifierÀÇ ½ÃÀÛ index
-* nextfree: ST¿¡¼­ ´ÙÀ½ character°¡ »ğÀÔµÉ °÷ÀÇ index
-*/
-int nextid;
-int nextfree;
+int nextid; // í˜„ì¬ identifierì˜ ì‹œì‘ index
+int nextfree; // STì—ì„œ ë‹¤ìŒ characterê°€ ì‚½ì…ë  ê³³ì˜ index
 int hashcode;
 int sameid;
 int yyleng;
@@ -57,21 +37,22 @@ char *yytext;
 
 /*
 * errorTypes
-* wrong_funcdef: Àß¸øµÈ function Á¤ÀÇ
-* nosemi : semicolon ºüÁü
-* nobrace : Áß°ıÈ£ »ı·«µÈ °æ¿ì
-* nobracket: ´ë°ıÈ£ »ı·«µÈ °æ¿ì
-*
+* - wrong_funcdef: ì˜ëª»ëœ function ì •ì˜
+* - noparen : ì†Œê´„í˜¸ ìƒëµëœ ê²½ìš°
+* - nobrace : ì¤‘ê´„í˜¸ ìƒëµëœ ê²½ìš°
+* - nobracket: ëŒ€ê´„í˜¸ ìƒëµëœ ê²½ìš°
+* - tlong: 11ì ì´ìƒì˜ identifierì¸ ê²½ìš°
+* - toverflow: ST overflowê°€ ë°œìƒí•œ ê²½ìš°
 */
 enum errorTypes { wrong_funcdef, nosemi, nobrace, nobracket, tlong, toverflow };
 typedef enum errorTypes ERRORtypes;
 ERRORtypes err;
 
 /*
-* cErrors: ¿¡·¯ °³¼ö ¼¼±â
-* cLine: ÄÚµå ÁÙ ¼ö ¼¼±â
-* found: symtable.c ¿¡¼­ »ç¿ëÇÏ´Â °Ë»ö¿ë flag
+* cErrors: ì—ëŸ¬ ê°œìˆ˜ ì„¸ê¸°
+* cLine: ì½”ë“œ ì¤„ ìˆ˜ ì„¸ê¸°
+* found: symtable.c ì—ì„œ ì‚¬ìš©í•˜ëŠ” ê²€ìƒ‰ìš© flag
 */
-int cErrors;
-int cLine;
-int found;
+int cErrors; // ì—ëŸ¬ ê°œìˆ˜
+int cLine; // ì½”ë“œ line
+int found; // symtable.cì—ì„œ ê²€ìƒ‰í•˜ê¸° ìœ„í•´ ì‚¬ìš©

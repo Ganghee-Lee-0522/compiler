@@ -1,11 +1,9 @@
-/*
-* symtable.c - identifier¸¦ ST¿¡ ³Ö°í, HT±¸ÇÔ (HW3)
-*
-* Programmer - team2
-*
-* date - 5/26/2021
-*
+ï»¿/*
+* symtable.c â€“ identifierë“¤ì˜ hashcodeë¥¼ ê³„ì‚°í•˜ê³  stì— ì‚½ì…
+* progrmmer â€“ ìµœìœ¤ì§€, ìœ¤ì§€ìœ¤, ì´ê°•í¬
+* date â€“ 06 / 01 / 2023
 */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h> 
@@ -15,188 +13,172 @@
 
 
 /* PrintHStable -
-* hash tableÀ» Çü½Ä¿¡ ¸ÂÃß¾î Ãâ·Â
+* hash tableì„ í˜•ì‹ì— ë§ì¶”ì–´ ì¶œë ¥
 */
 void PrintHStable()
 {
-	HTptr here;
-	int i, j;
+    HTpointer here;
+    int i, j;
 
-	printf("\n[[HASH TABLE]]\n");
-	printf("==================================================================================\n");
+    printf("\n[[HASH TABLE]]\n");
+    printf("==================================================================================\n");
 
-	for (i = 0; i < HTsize; i++) {
-		if (HT[i] != NULL) {
-			here = HT[i];
-			do {
-				printf("Hash Code%4d : (", i);
-				for (j = here->index; ST[j] != '\0'; j++) printf("%c", ST[j]);
-				printf(" : ");
+    for (i = 0; i < HTsize; i++) {
+        if (HT[i] != NULL) {
+            here = HT[i];
+            do {
+                printf("Hash Code%4d : (", i);
+                for (j = here->index; ST[j] != '\0'; j++) printf("%c", ST[j]);
+                printf(" : ");
 
-				switch (here->type) {
-					//int variable
-				case 1: printf("integer scalar variable, line%d)\n", here->cLine); break;
-					//void variable
-				case 2: printf("void scalar variable, line%d)\n", here->cLine); break;
-					//array(int) variable
-				case 3: printf("array integer variable, line%d)\n", here->cLine); break;
-					//void function
-				case 4: printf("function, return type=void, line%d)\n", here->cLine); break;
-					//not define
-				case 5: printf("not defined identifier/function, line%d)\n", here->cLine); break;
-					//float variable
-				case 6: printf("float scalar variable, line%d)\n", here->cLine); break;
-					//array(float) variable
-				case 7: printf("array float variable, line%d)\n", here->cLine); break;
-					//int function
-				case 8: printf("function, return type=int, line%d)\n", here->cLine); break;
-					//float function
-				case 9:printf("function, return type=float, line%d)\n", here->cLine); break;
-					//int scalar parameter
-				case 10: printf("integer scalar parameter, line%d)\n", here->cLine); break;
-					//float scalar parameter
-				case 11: printf("float scalar parameter, line%d)\n", here->cLine); break;
-				default: printf("identifier about parse error, line%d)\n", here->cLine); break;
-				}
-				here = here->next;
-			} while (here != NULL);
-		}
+                switch (here->type) {
+                    //int variable
+                case 1: printf("integer scalar variable, line%d)\n", here->cLine); break;
+                    //void variable
+                case 2: printf("void scalar variable, line%d)\n", here->cLine); break;
+                    //array(int) variable
+                case 3: printf("integer array variable, line%d)\n", here->cLine); break;
+                    //void function
+                case 4: printf("function, return type=void, line%d)\n", here->cLine); break;
+                    //not define
+                case 5: printf("not defined identifier/function, line%d)\n", here->cLine); break;
+                    //int function
+                case 6: printf("function, return type=int, line%d)\n", here->cLine); break;
+                    //int scalar parameter
+                case 7: printf("integer scalar parameter, line%d)\n", here->cLine); break;
+
+
+                default: printf("identifier about parse error, line%d)\n", here->cLine); break;
+                }
+                here = here->next;
+            } while (here != NULL);
+        }
 
 
 
-	}
-	printf("==================================================================================\n");
+    }
+    printf("==================================================================================\n");
+
+
+}
+
+//identifierì˜ hash codeë“¤ì„ ëª¨ë‘ ë”í•˜ì—¬ moduloì—°ì‚°ì„ ìˆ˜í–‰
+void ComputeHS(int nid, int nfree) {
+    int code, i;
+    code = 0;
+    for (i = nid; i < nfree - 1; i++) {
+        code += (int)ST[i];   //hash codeë”í•˜ê¸°
+    }
+    hashcode = code % HTsize;   //modulo
+}
+
+
+//identifierê°€ ì´ì „ì— ì‚½ì…ëœ ì  ìˆëŠ”ì§€ ì‚´í´ë´„ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ STì— ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì‹œì‘ indexë¥¼ ë¶ˆëŸ¬ì˜´
+
+void LookupHS(int nid, int hscode) {
+    HTpointer here;
+    int i, j;
+    found = FALSE;
+    if (HT[hscode] != NULL) {
+        here = HT[hscode];
+        while (here != NULL && found == FALSE) {
+            found = TRUE;
+            i = here->index;
+            j = nid;
+            sameid = i;
+            while (ST[i] != '\0' && found == TRUE) {
+                if (ST[i] != ST[j]) {
+                    found = FALSE;
+                }
+                else {
+                    i++;
+                    j++;
+                }
+            }
+            here = here->next;
+        }
+    }
+}
+
+
+
+void ADDHT(int hscode){
+//hash tableì— ìƒˆë¡œìš´ identifierë¥¼ ì¶”ê°€
+//nullì´ì—ˆìœ¼ë©´ ë°”ë¡œ ì¶”ê°€í•˜ê³ , ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ linked listë¡œ ì—°ê²°
+    HTpointer tmp;
+
+
+    if (HT[hscode] == NULL) {
+        tmp = (HTpointer)malloc(sizeof(struct HTentry));
+        tmp->type = 0;
+        tmp->next = NULL;
+        tmp->cLine = cLine;
+        HT[hscode] = tmp;
+        tmp->index = nextid;
+    }
+    else {
+        tmp = (HTpointer)malloc(sizeof(struct HTentry));
+        tmp->type = 0;
+        tmp->index = nextid;
+        tmp->next = HT[hscode];
+        tmp->cLine = cLine;
+        HT[hscode] = tmp;
+    }
+    look_id = tmp;
 
 
 }
 
 
-/*ComputeHS
-* identifierÀÇ hascode °è»ê : ¸ğµç charactersÀÇ ¾Æ½ºÅ° °ªÀ» ´õÇÑ ÈÄ, HT»çÀÌÁî·Î ³ª´« ³ª¸ÓÁö
-*/
-void ComputeHS(int nid, int nfree)
-{
-	int i, func = 0;
-	for (i = nid; i < nfree - 1; i++) {
-		func += (int)ST[nid++];
-	}
-	hashcode = func%HTsize;
-}
-
-/*
-* LookupHS
-* °¢ identifer¿¡ ´ëÇØ, hastable¿¡ ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎ
-* ÀÌ¹Ì ÀÖ´Ù¸é found¸¦ true·Î ÃÊ±âÈ­ / ¾ø´Ù¸é false·Î ÃÊ±âÈ­
-*/
-void LookupHS(int nid, int hscode)
-{
-	HTptr here;
-	int i, j;
-	found = FALSE;
-
-	//ºñ¾îÀÖÁö ¾ÊÀ¸¸é
-	if (HT[hscode] != NULL) {
-		here = HT[hscode];
-		while (here != NULL && found == FALSE) {
-			found = TRUE;
-			i = here->index;
-			j = nid;
-			sameid = i;
-			while (ST[i] != '\0' && ST[j] != '\0' && found == TRUE) {
-				if (ST[i] != ST[j]) found = FALSE;
-				else {
-					i++;
-					j++;
-				}
-			}
-			here = here->next;
-
-		}
-	}
-}
 
 
-/*
-* ADDHT
-* »õ·Î¿î identifier¸¦ hash table¿¡ ³Ö´Â´Ù.
-* index¿Í next¸¦ ÁöÁ¤ÇØÁÖ°í, typeÀº 0À¸·Î ÃÊ±âÈ­ÇÏ¸ç, ¸î¹øÂ° ÁÙ¿¡ Á¸ÀçÇÏ´ÂÁö¸¦ cLine¿¡ ÀúÀåÇÑ´Ù.
-* ht[hashcode]¸®½ºÆ®°¡ ºñ¾îÀÖ´Ù¸é, next´Â NULL·Î Ã¤¿ì°í,
-* ¸®½ºÆ®°¡ ºñ¾îÀÖÁö¾ÊÀ¸¸é next´Â HTÅ×ÀÌºíÀ» ÀÌ¿ëÇÏ¿© Ã¤¿î´Ù.
-*/
-void ADDHT(int hscode)
-{
-	HTptr tmp;
 
-	if (HT[hscode] == NULL) {
-		tmp = (HTptr)malloc(sizeof(struct HTentry));
-		tmp->type = 0;
-		tmp->next = NULL;
-		tmp->cLine = cLine;
-		HT[hscode] = tmp;
-		tmp->index = nextid;
-	}
-	else {
-		tmp = (HTptr)malloc(sizeof(struct HTentry));
-		tmp->type = 0;
-		tmp->index = nextid;
-		tmp->next = HT[hscode];
-		tmp->cLine = cLine;
-		HT[hscode] = tmp;
-	}
-	look_id = tmp;
-
-}
-
-
-/*
-SymbolTable
-*   identifier·Î ÀÎ½ÄµÈ tokenÀ» ÇÑ ±ÛÀÚ¾¿ ST¿¡ ³ÖÀ½. (yytext, yylengÀÌ¿ë)
-*   ÇØ´ç identifierÀÇ hashcode°ªÀ» °è»ê.
-*   HT[hashcode]¿¡ identifier°¡ ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎ
-*   ÀÌ¹Ì ÀÖÀ¸¸é, ÇöÀç ÀĞÀº identifier¸¦ ST¿¡¼­ »èÁ¦
-*   ¾ÆÁ÷ ¾øÀ¸¸é, HT[hashcode]ÀÇ index¿¡ identifierÀÇ ST¿¡¼­ÀÇ Ã¹ ÀÎµ¦½º °ªÀ» ³ÖÀ½
-*   identifier¿¡ ´ëÇØ line number, Token-type(Identifier), token ¼øÀ¸·Î Ãâ·Â
-*/
+//ë©”ì¸ í•¨ìˆ˜
 int SymbolTable()
 {
 
-	nextid = nextfree;
+    nextid = nextfree;
+
+    // yytext í•œê¸€ìì”© STì— ë„£ìŒ
+    for (int i = 0; i < yyleng; i++) {
+        ST[nextfree++] = yytext[i];
+    }
+    // identifierë¥¼ ë‹¤ ë„£ì€ í›„
+    ST[nextfree++] = '\0';
+
+    // HSê³„ì‚°, ê° identiferì— ëŒ€í•´, hastableì— ì´ë¯¸ ìˆëŠ”ì§€ í™•ì¸
+    ComputeHS(nextid, nextfree);
+    LookupHS(nextid, hashcode);
+
+    //ì²˜ìŒ ë“±ì¥í•œ identifierì¼ ê²½ìš°
+    if (!found) {
+        ADDHT(hashcode); // HT ì‚½ì…
+    }
+    //identifierê°€ ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ê²½ìš°
+
+    else {
+        nextfree = nextid; //ì´ë²ˆì— STì— ì½ì€ identifierë¥¼ ë‹¤ìŒì— ë®ì–´ì”€
+    }
+
+    //ST overflow ë°œìƒ ì‹œ
+    if (nextfree == STsize) {
+        reporterror(toverflow);
+        PrintHStable();
+        exit(1);
+    }
 
 
-	//ST overflow ¹ß»ı ½Ã
-	if (nextfree == STsize) {
-		reporterror(toverflow);
-		PrintHStable();
-		exit(1);
-	}
-
-	// yytext ÇÑ±ÛÀÚ¾¿ ST¿¡ ³ÖÀ½
-	for (int i = 0; i < yyleng; i++) {
-		ST[nextfree++] = yytext[i];
-	}
-	// identifier¸¦ ´Ù ³ÖÀº ÈÄ
-	ST[nextfree++] = '\0';
-
-	// HS°è»ê, °¢ identifer¿¡ ´ëÇØ, hastable¿¡ ÀÌ¹Ì ÀÖ´ÂÁö È®ÀÎ
-	ComputeHS(nextid, nextfree);
-	LookupHS(nextid, hashcode);
 
 
-	if (!found) { // ¾ÆÁ÷ °°Àº identifier¸¦ ST¿¡ ³ÖÀº Àû ¾øÀ» ¶§
-		ADDHT(hashcode); // HT »ğÀÔ
-	}
-	else { // ÀÌ¹Ì °°Àº identifier°¡ ÀÖÀ» ¶§
-		nextfree = nextid; //ÀÌ¹ø¿¡ ST¿¡ ÀĞÀº identifier¸¦ ´ÙÀ½¿¡ µ¤¾î¾¸
-	}
 
 
-	/*STÃâ·Â
-	printf("===ST===\n");
-	for (int i = 0; i < nextfree; i++) {
-	if (ST[i] == '\0') printf("\n");
-	else printf("%c", ST[i]);
-	}
-	printf("\n\n\n");
-	*/
+    /*STì¶œë ¥
+    printf("===ST===\n");
+    for (int i = 0; i < nextfree; i++) {
+    if (ST[i] == '\0') printf("\n");
+    else printf("%c", ST[i]);
+    }
+    printf("\n\n\n");
+    */
 
 }
