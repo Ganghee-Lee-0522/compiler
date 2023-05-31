@@ -1,13 +1,9 @@
 %{
-/*
-* scanner.l- lexical analyzer for the MiniC(HW3)
-*
-* Programmer - team2
-*
-* date -  5/26/2021
-*
-*
+/* scanner.l - lexical analyzer for the MiniC
+* programmer – 최윤지, 윤지윤, 이강희
+* date – 06/01/2023 
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "tn.h" /* token name definition */
@@ -34,7 +30,6 @@ int i;
 "else" return(TELSE);
 "if" return(TIF);
 "int" return(TINT);
-"float" return(TFLOAT);
 "return" return(TRETURN);
 "void" {return(TVOID);}
 "while" return(TWHILE);
@@ -59,8 +54,8 @@ int i;
  */
 "+" return(TPLUS);
 "-" return(TMINUS);
-"*" return(TSTAR);
-"/" return(TSLASH);
+"*" return(TMULTIPLY);
+"/" return(TDIVIDE);
 "%" return(TMOD);
 "=" {return(TASSIGN);}
 "+=" return(TADDASSIGN);
@@ -74,9 +69,9 @@ int i;
 "==" return(TEQUAL);
 "!=" return(TNOTEQU);
 "<" return(TLESS);
-">" return(TOVER);
+">" return(TGREAT);
 "<=" return(TLESSE);
-">=" return(TOVERE);
+">=" return(TGREATE);
 "++" return(TINC);
 "--" return(TDEC);
 
@@ -84,14 +79,14 @@ int i;
  /*
  * Special Symbols
  */
-"(" {return(TOSBRA);}
-")" { return(TCSBRA);}
+"(" {return(TLPAREN);}
+")" { return(TRPAREN);}
 "," {return(TCOMMA);}
-"{" return(TOMBRA);
-"}" return(TCMBRA);
-"[" return(TOLBRA);
-"]" return(TCLBRA);
-";" {return(TSEMI);}
+"{" return(TLBRACE);
+"}" return(TRBRACE);
+"[" return(TLBRACKET);
+"]" return(TRBRACKET);
+";" {return(TSEMICOLON);}
 
 
 
@@ -107,7 +102,7 @@ int i;
 
  /*
   Identifier (명칭)
- *   13자 이상일 경우, 에러 호출
+ *   11자 이상일 경우, 에러 호출
  *   아닌 경우, SymbolTable 호출 (ST삽입, hashcode계산, HT삽입 수행)
  */
  
@@ -120,7 +115,7 @@ int i;
 
   else{
     SymbolTable();
-    return (TIDENT);
+    return (TIDEN);
   }
 }
 
@@ -128,7 +123,6 @@ int i;
  * Constant (상수) 
  */
 [0-9]+  {return(TNUMBER);}
-[0-9]+\.[0-9]+ return(TPOINT);
 
  /*
  * illegal Symbol

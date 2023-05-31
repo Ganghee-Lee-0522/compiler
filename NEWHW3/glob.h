@@ -16,7 +16,7 @@ HT, ST 크기 정의, 식별자 최대길이 정의
 #define HTsize 100
 #define FALSE 0
 #define TRUE 1
-#define MaxIdentLen 12
+#define MaxIdentLen 10
 
 /*
 * 포인터 HTptr, HTentry 구조체

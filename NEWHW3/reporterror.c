@@ -35,35 +35,35 @@ void yyerror(char *s) {
 * 1)nosemi : semicolon을 사용하지 않은 경우
 * 2)nobrace : 올바르지 않은 형식의 중괄요 사용(missing brace)
 * 3)nobraket : 올바르지 않은 형식의 대괄호 사용
-* 4)long : 12자를 초과하는 identifier
+* 4)long : 10자를 초과하는 identifier
 * 5)overflow : table의 size를 초과한 경우
 */
 void reporterror(ERRORtypes err) {
 	switch (err) {
 	case 0: //wrong_funcdef
-		printf("\t%-5d %-15s %-50s\n", cLine, "***Error***", " Wrong function definition");
+		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Wrong function definition");
 		cErrors++;
 		break;
 
 	case 1: //nosemi
-		printf("\t%-5d %-15s %-50s\n", cLine, "***Error***", " Missing semicolon");
+		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Missing semicolon");
 		cErrors++;
 		break;
 
 	case 2: //nobrace (중괄호)
-		printf("\t%-5d %-15s %-50s\n", cLine, "***Error***", " Missing brace");
+		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Missing brace");
 		cErrors++;
 		break;
 	case 3: //nobraket (대괄호)
-		printf("\t%-5d %-15s %-50s\n", cLine, "***Error***", " Missing bracket");
+		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Missing bracket");
 		cErrors++;
 		break;
 	case 4: //long 
-		printf("\t%-5d %-15s %-50s\n", cLine, "***Error***", " Long identifier");
+		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Long identifier");
 		cErrors++;
 		break;
 	case 5: //overflow
-		printf("\t%-5d %-15s %-50s\n", cLine, "***Error***", " Overflow");
+		printf("%-5d %-15s %-50s\n", cLine, "< Error > =>", " Overflow");
 		cErrors++;
 		break;
 

@@ -9,16 +9,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "glob.h"
+#include "tn.h"
 
 extern int yyparse();
 extern void PrintHStable();
 
 void main() {
 
-	look_id = (HTptr)malloc(sizeof(struct HTentry));
-	look_tmp = (HTptr)malloc(sizeof(struct HTentry));
-
-	printf("\n\n\t\t\t    ***MiniC parsing begins***\n");
+	printf("\n[Error Report : Error Information]\n");
 	printf("==================================================================================\n");
 
 	/* cLine, nextid, nextfree 초기화 */
@@ -31,16 +29,9 @@ void main() {
 
 
 	printf("==================================================================================\n");
-	printf("\n\t\t  ===> Parsing ends.");
+	printf("Parsing ends.***");
 
-
-	if (cErrors == 0) {
-		printf("\t no errors detected\n\n\n\n");
-
-
-	}
-
-	else printf("\t %d error(s) detected\n\n\n\n", cErrors);
+	printf("\t %d error(s) detected\n\n\n\n", cErrors);
 
 	/* HS테이블 출력*/
 	PrintHStable();

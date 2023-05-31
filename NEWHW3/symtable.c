@@ -22,14 +22,14 @@ void PrintHStable()
 	HTptr here;
 	int i, j;
 
-	printf("\n\t\t\t\t***HASH TABLE***\n");
+	printf("\n[[HASH TABLE]]\n");
 	printf("==================================================================================\n");
 
 	for (i = 0; i < HTsize; i++) {
 		if (HT[i] != NULL) {
 			here = HT[i];
 			do {
-				printf("\tHash Code%4d : (", i);
+				printf("Hash Code%4d : (", i);
 				for (j = here->index; ST[j] != '\0'; j++) printf("%c", ST[j]);
 				printf(" : ");
 
