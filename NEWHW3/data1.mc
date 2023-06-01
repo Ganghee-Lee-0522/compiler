@@ -3,7 +3,7 @@
 //global variables
 const int input = 5;
 int intarray[10];
-float floatarray[10];
+int intarray[10];
 
 int fibonacci(int a) { 
 	int res_fibo = 0;
@@ -23,15 +23,15 @@ int fibonacci(int a) {
 	return res_fibo;
 }
 
-float triangle(int width, int height) {
-	float result_tri;
+int triangle(int width, int height) {
+	int result_tri;
 	result_tri = width * height / 2;
 	return result_tri;
 }
 
 int main() {
 	int fibo;
-	float tri;
+	int tri;
 
 	if (input >= 3) 
 		fibo = fibonacci(input);

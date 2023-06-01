@@ -3,7 +3,7 @@
 //global variables
 const int input = 5;
 int intarray[10];
-float floatarray[10];
+int intarray[10];
 
 int fibonacci(int a) { 
 	int res_fibo = 0;

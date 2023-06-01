@@ -32,26 +32,21 @@ void PrintHStable()
                 printf(" : ");
 
                 switch (here->type) {
-                    // int variable
+                    //int variable
                 case 1: printf("integer scalar variable, line%d)\n", here->cLine); break;
-                    // void variable
+                    //void variable
                 case 2: printf("void scalar variable, line%d)\n", here->cLine); break;
-                    // array(int) variable
+                    //array(int) variable
                 case 3: printf("integer array variable, line%d)\n", here->cLine); break;
-                    // void function
+                    //void function
                 case 4: printf("function, return type=void, line%d)\n", here->cLine); break;
-                    // not define
+                    //not define
                 case 5: printf("not defined identifier/function, line%d)\n", here->cLine); break;
-                    // int function
+                    //int function
                 case 6: printf("function, return type=int, line%d)\n", here->cLine); break;
-                    // int scalar parameter
+                    //int scalar parameter
                 case 7: printf("integer scalar parameter, line%d)\n", here->cLine); break;
-                    // float scalar variable
-                case 8: printf("float scalar variable, line%d)\n", here->cLine); break;
-                    // array(float) variable
-                case 9: printf("float array variable, line%d)\n", here->cLine); break;
-                    // float function
-                case 10: printf("function, return type=float, line%d)\n", here->cLine); break;
+
 
                 default: printf("identifier about parse error, line%d)\n", here->cLine); break;
                 }

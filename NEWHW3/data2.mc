@@ -1,10 +1,10 @@
 // 2023 Compiler Testdata 2
 
-float arr1[10];
-const float f1 = 5;
+int arr1[10];
+const int f1 = 5;
 
-float div_num(float num, float div){
-	float result;
+int div_num(int num, int div){
+	int result;
 	// save the result
 	int p;
 

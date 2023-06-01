@@ -13,7 +13,6 @@
 #include "glob.h"
 
  int type_int=0;
- int type_float=0;
  int type_void=0;
  int param_int=0;
 
@@ -25,7 +24,7 @@ extern yyerror(s);
 
 %}
 
-%token TIDEN TNUMBER TCONST TELSE TIF TINT TFLOAT TFLOATNUM TRETURN TVOID TWHILE
+%token TIDEN TNUMBER TCONST TELSE TIF TINT TRETURN TVOID TWHILE
 %token TADDASSIGN TSUBASSIGN TMULASSIGN TDIVASSIGN TMODASSIGN
 %token TOR TAND TEQUAL TNOTEQU TGREAT TLESS TGREATE TLESSE TINC TDEC
 %token TPLUS TMINUS TMULTIPLY TDIVIDE TMOD TNOT TASSIGN TLPAREN TRPAREN TCOMMA TSEMICOLON
@@ -82,7 +81,6 @@ type_qualifier       : TCONST
       /* 해당 하는 type 변수를 1로 설정*/
 type_specifier    : TINT {type_int=1;}  /* type : integer */
           | TVOID {type_void=1;} /* type : void */
-          | TFLOAT {type_float=1;} /* type : float */
          ;
 
 function_name    : TIDEN
@@ -97,12 +95,9 @@ function_name    : TIDEN
                               look_id->type=4; /* function, return type=void */
                         }else if(type_int==1){
                               look_id->type=6; /* function, return type=int */
-                        }else if(type_float==1){
-                              look_id->type=8; /* function, return type=float */
                         }
                         type_int=0;
                         type_void=0;
-                        type_float=0;
                         look_tmp=look_id;
                   }
                   }
@@ -132,7 +127,7 @@ param_dcl       : dcl_spec declarator{
                   }
                   type_int=0;
                   type_void=0;
-                  type_float=0;
+
                   param_int=0;
 
 
@@ -154,7 +149,6 @@ declaration_list    : declaration
 declaration       : dcl_spec init_dcl_list TSEMICOLON{
                         type_int=0;
                         type_void=0;
-			type_float=0;
 
                   }
                   | dcl_spec init_dcl_list error{
@@ -162,7 +156,6 @@ declaration       : dcl_spec init_dcl_list TSEMICOLON{
                         yyerrok;
                         type_int=0;
                         type_void=0;
-			type_float=0;
                         reporterror(nosemi); /* no semicolon error */
                   }
          ;
@@ -171,7 +164,6 @@ init_dcl_list       : init_declarator
          ;
 init_declarator    : declarator
           | declarator TASSIGN TNUMBER
-	  | declarator TASSIGN TFLOATNUM
          ;
 declarator    : TIDEN{
                   if(look_id->type==0){
@@ -179,12 +171,8 @@ declarator    : TIDEN{
                         if(type_int==1){
                               look_id->type=1; /* integer scalar variable */
                         }
-                        else if(type_void==1){
-                              look_id->type=2;  /* void scalar variable */
-			}else if(type_float==1){ 
-			      look_id->type=8; /* float scalar variable */
-				
-				}
+                        else if(type_void==1)
+                              look_id->type=2; /* void scalar variable */
 
                   }
                   look_tmp=look_id;
@@ -195,7 +183,6 @@ declarator    : TIDEN{
 
                   if(look_id->type==0){
                         if(type_int==1)look_id->type=3; /*  integer array variable */
-			if(type_float==1)look_id->type=9;  /*  float array variable */
 
                   }
 
@@ -211,8 +198,6 @@ declarator    : TIDEN{
 
 
 opt_number       : TNUMBER
-		  | TFLOATNUM  /* float형 숫자 */      
-                  |   
 
          ;
 opt_stat_list       : statement_list
@@ -307,7 +292,6 @@ primary_exp   : TIDEN
 
             }
               | TNUMBER
-	      | TFLOATNUM
               | TLPAREN expression TRPAREN
 
          ;

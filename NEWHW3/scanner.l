@@ -30,7 +30,6 @@ int i;
 "else" return(TELSE);
 "if" return(TIF);
 "int" return(TINT);
-"float" return(TFLOAT);
 "return" return(TRETURN);
 "void" {return(TVOID);}
 "while" return(TWHILE);
@@ -124,7 +123,6 @@ int i;
  * Constant (상수) 
  */
 [0-9]+  {return(TNUMBER);}
-[0-9]+\.[0-9]+ return(TFLOATNUM);
 
  /*
  * illegal Symbol
