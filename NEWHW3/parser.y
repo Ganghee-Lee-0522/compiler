@@ -29,7 +29,7 @@ extern yyerror(s);
 %token TOR TAND TEQUAL TNOTEQU TGREAT TLESS TGREATE TLESSE TINC TDEC
 %token TPLUS TMINUS TMULTIPLY TDIVIDE TMOD TNOT TASSIGN TLPAREN TRPAREN TCOMMA TSEMICOLON
 %token TLBRACKET TRBRACKET TLBRACE TRBRACE
-%token TILLIDENT TLONG
+%token TILLIDENT TLONG TOVER
 
 %nonassoc LOWER_THEN_ELSE
 %nonassoc TELSE
@@ -44,14 +44,19 @@ translation_unit    : external_dcl
 external_dcl       : function_def
            | declaration
            | TIDEN TSEMICOLON
-           ;
+           | TIDEN error
+      {
+              yyerrok;
+             reporterror(wrong_st); /* error - wrong statement */
+       }
+          ;
 
 function_def      : function_header compound_st
                   |function_header TSEMICOLON
                   |function_header error /* 비정상적인 함수 정의 */
                   {
 
-                   /* 에러 발생시 tupe 수정을 위해 default값 0세팅 */
+                   /* 에러 발생시 tuple 수정을 위해 default값 0세팅 */
                    /* identifier about parse error */
                     look_tmp->type=0;
                     yyerrok;
@@ -89,7 +94,7 @@ function_name    : TIDEN
                         if(type_void==1){
                               look_id->type=4; /* function, return type=void */
                         }else if(type_int==1){
-                              look_id->type=8; /* function, return type=int */
+                              look_id->type=6; /* function, return type=int */
                         }
                         type_int=0;
                         type_void=0;
@@ -97,9 +102,11 @@ function_name    : TIDEN
                   }
                   }
 
-                  /* ill identifier, too long identifier인 경우, scanner에서 에러 발생시킴*/
+                  /* ill identifier, too long identifier, overflow 인 경우, scanner에서 에러 발생시킴*/
                   |TILLIDENT
-                  |TLONG;
+                  |TLONG
+                  |TOVER 
+;
 
 
 
@@ -116,7 +123,7 @@ formal_param_list    : param_dcl
 param_dcl       : dcl_spec declarator{
                   if(type_int==1){ /* int의 경우 */
                         param_int=1;
-                        look_id->type=10;  /* integer scalar parameter */
+                        look_id->type=7;  /* integer scalar parameter */
                   }
                   type_int=0;
                   type_void=0;

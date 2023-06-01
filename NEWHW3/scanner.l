@@ -14,7 +14,7 @@ extern LookupHS(int nid, int nfree);
 extern SymbolTable();
 extern ADDHT(int hscode);
 extern PrintHStable();
-extern yyerror(char *s);
+extern yyerror(s);
 int i;
 
 %}
@@ -36,7 +36,7 @@ int i;
 
 
  /*
- * ILL Identifier
+ * ILL Identifier : 숫자로 시작하는 경우
  */
 [0-9]+[a-zA-Z_][a-zA-Z0-9_]* {
     yyerror("scanner error : start with digit identifier");
@@ -109,8 +109,8 @@ int i;
 [a-zA-Z_][a-zA-Z0-9_]* {
 
   if(yyleng>MaxIdentLen){ 
-    reporterror(tlong);
-    return(TLONG);
+      yyerror("scanner error :identifier is too long");
+    return (TLONG);
   }
 
   else{
@@ -134,5 +134,3 @@ int i;
 int yywrap(){
   return 1;
 }
-
-

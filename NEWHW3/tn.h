@@ -42,7 +42,8 @@
 #define	TRBRACE	296
 #define	TILLIDENT	297
 #define	TLONG	298
-#define	LOWER_THEN_ELSE	299
+#define	TOVER	299
+#define	LOWER_THEN_ELSE	300
 
 
 extern YYSTYPE yylval;

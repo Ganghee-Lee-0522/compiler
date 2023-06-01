@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
 * glob.h - global variable for the project
 * progrmmer – 최윤지, 윤지윤, 이강희
 * date – 06 / 01 / 2023
@@ -11,7 +10,7 @@
 #define TRUE 1
 #define MaxIdentLen 10 // identifier의 최대 길이
 
-typedef struct HTentry *HTpointer; // HTentry를 가리키는 HTpointer
+typedef struct HTentry* HTpointer; // HTentry를 가리키는 HTpointer
 
 typedef struct HTentry {
 	int index; // ST 읽기 위해 사용
@@ -33,18 +32,19 @@ int nextfree; // ST에서 다음 character가 삽입될 곳의 index
 int hashcode;
 int sameid;
 int yyleng;
-char *yytext;
+char* yytext;
 
 /*
 * errorTypes
+* - wrong_st: 잘못된 statement인 경우
 * - wrong_funcdef: 잘못된 function 정의
-* - noparen : 소괄호 생략된 경우
+* - nosemi: semicolon 생략된 경우
 * - nobrace : 중괄호 생략된 경우
 * - nobracket: 대괄호 생략된 경우
 * - tlong: 11자 이상의 identifier인 경우
 * - toverflow: ST overflow가 발생한 경우
 */
-enum errorTypes { wrong_funcdef, nosemi, nobrace, nobracket, tlong, toverflow };
+enum errorTypes { wrong_st, wrong_funcdef, nosemi, nobrace, nobracket, tlong, toverflow };
 typedef enum errorTypes ERRORtypes;
 ERRORtypes err;
 

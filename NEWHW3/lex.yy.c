@@ -423,7 +423,7 @@ extern LookupHS(int nid, int nfree);
 extern SymbolTable();
 extern ADDHT(int hscode);
 extern PrintHStable();
-extern yyerror(char *s);
+extern yyerror(s);
 int i;
 
 #line 430 "lex.yy.c"
@@ -698,7 +698,7 @@ YY_RULE_SETUP
 return(TWHILE);
 	YY_BREAK
 /*
- * ILL Identifier
+ * ILL Identifier : 숫자로 시작하는 경우
  */
 case 8:
 YY_RULE_SETUP
@@ -898,8 +898,8 @@ YY_RULE_SETUP
 {
 
   if(yyleng>MaxIdentLen){ 
-    reporterror(tlong);
-    return(TLONG);
+      yyerror("scanner error :identifier is too long");
+    return (TLONG);
   }
 
   else{
@@ -1795,5 +1795,3 @@ int main()
 int yywrap(){
   return 1;
 }
-
-
