@@ -124,7 +124,7 @@ int i;
  * Constant (상수) 
  */
 [0-9]+  {return(TNUMBER);}
-[0-9]+\.[0-9]+ return(TPOINT);
+[0-9]+\.[0-9]+ return(TFLOATNUM);
 
  /*
  * illegal Symbol
