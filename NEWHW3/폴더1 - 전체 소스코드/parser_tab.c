@@ -201,15 +201,15 @@ static const short yyrline[] = { 0,
     39,    41,    42,    44,    45,    46,    47,    52,    60,    61,
     62,    69,    71,    73,    74,    76,    77,    79,    84,    85,
     88,   108,   109,   110,   115,   117,   118,   120,   121,   125,
-   138,   139,   145,   146,   148,   149,   151,   156,   163,   164,
-   166,   167,   169,   182,   193,   197,   198,   201,   204,   205,
-   207,   208,   209,   211,   212,   213,   214,   215,   217,   218,
-   224,   225,   227,   228,   230,   232,   234,   236,   237,   238,
-   239,   240,   241,   242,   244,   245,   247,   248,   250,   251,
-   252,   254,   255,   256,   257,   258,   260,   261,   262,   264,
-   265,   266,   267,   269,   270,   271,   272,   273,   275,   276,
-   277,   278,   279,   281,   282,   284,   286,   287,   289,   295,
-   296
+   138,   139,   145,   146,   148,   149,   151,   156,   164,   165,
+   167,   168,   170,   183,   194,   198,   199,   202,   205,   206,
+   208,   209,   210,   212,   213,   214,   215,   216,   218,   219,
+   225,   226,   228,   229,   231,   233,   235,   237,   238,   239,
+   240,   241,   242,   243,   245,   246,   248,   249,   251,   252,
+   253,   255,   256,   257,   258,   259,   261,   262,   263,   265,
+   266,   267,   268,   270,   271,   272,   273,   274,   276,   277,
+   278,   279,   280,   282,   283,   285,   287,   288,   290,   296,
+   297
 };
 
 static const char * const yytname[] = {   "$","error","$undefined.","TIDEN",
@@ -937,6 +937,7 @@ case 37:
 case 38:
 #line 156 "parser.y"
 {
+                        look_tmp->type=0; 
                         yyerrok;
                         type_int=0;
                         type_void=0;
@@ -944,7 +945,7 @@ case 38:
                   ;
     break;}
 case 43:
-#line 169 "parser.y"
+#line 170 "parser.y"
 {
                   if(look_id->type==0){
 
@@ -960,7 +961,7 @@ case 43:
             ;
     break;}
 case 44:
-#line 183 "parser.y"
+#line 184 "parser.y"
 {
 
                   if(look_id->type==0){
@@ -973,21 +974,21 @@ case 44:
             ;
     break;}
 case 45:
-#line 193 "parser.y"
+#line 194 "parser.y"
 {
                   yyerrok;
                   reporterror(nobracket); /* no bracket error */
             ;
     break;}
 case 60:
-#line 219 "parser.y"
+#line 220 "parser.y"
 {
                         yyerrok;
                         reporterror(nosemi); /* no semicolon error */
                   ;
     break;}
 case 109:
-#line 290 "parser.y"
+#line 291 "parser.y"
 {
                   if(look_id->type==0)
                         look_id->type=5; /* not defined identifier/function */
@@ -1192,4 +1193,4 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 299 "parser.y"
+#line 300 "parser.y"

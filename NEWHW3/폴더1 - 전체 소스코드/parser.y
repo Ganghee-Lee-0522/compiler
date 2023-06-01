@@ -154,6 +154,7 @@ declaration       : dcl_spec init_dcl_list TSEMICOLON{
 
                   }
                   | dcl_spec init_dcl_list error{
+                        look_tmp->type=0; 
                         yyerrok;
                         type_int=0;
                         type_void=0;

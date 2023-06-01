@@ -41,11 +41,13 @@ void PrintHStable()
                     //void function
                 case 4: printf("function, return type=void, line%d)\n", here->cLine); break;
                     //not define
+                case 0:
                 case 5: printf("not defined identifier/function, line%d)\n", here->cLine); break;
                     //int function
                 case 6: printf("function, return type=int, line%d)\n", here->cLine); break;
                     //int scalar parameter
                 case 7: printf("integer scalar parameter, line%d)\n", here->cLine); break;
+
                 }
                 here = here->next;
             } while (here != NULL);
