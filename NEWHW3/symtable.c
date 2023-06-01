@@ -46,9 +46,6 @@ void PrintHStable()
                 case 6: printf("function, return type=int, line%d)\n", here->cLine); break;
                     //int scalar parameter
                 case 7: printf("integer scalar parameter, line%d)\n", here->cLine); break;
-
-
-                default: printf("identifier about parse error, line%d)\n", here->cLine); break;
                 }
                 here = here->next;
             } while (here != NULL);

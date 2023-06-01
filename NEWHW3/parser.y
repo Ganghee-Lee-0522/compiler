@@ -49,12 +49,13 @@ external_dcl       : function_def
               yyerrok;
              reporterror(wrong_st); /* error - wrong statement */
        }
-           | TRBRACE
+           | TRBRACE /* 왼쪽 중괄호 없음 */
            {
                     yyerrok;
                     reporterror(nobrace);
               }
-              ;
+           ;
+              
 
 function_def      : function_header compound_st
                   |function_header TSEMICOLON
@@ -135,7 +136,7 @@ param_dcl       : dcl_spec declarator{
 }
          ;
 compound_st : TLBRACE opt_dcl_list opt_stat_list TRBRACE
-            | TLBRACE opt_dcl_list opt_stat_list error TRBRACE
+            | TLBRACE opt_dcl_list opt_stat_list error /* 오른쪽 중괄호 없음 */
               {
                     yyerrok;
                     reporterror(nobrace);
@@ -153,7 +154,6 @@ declaration       : dcl_spec init_dcl_list TSEMICOLON{
 
                   }
                   | dcl_spec init_dcl_list error{
-                        look_tmp->type=0; /* 예상치 못한 에러 발생  */
                         yyerrok;
                         type_int=0;
                         type_void=0;
